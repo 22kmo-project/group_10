@@ -1,38 +1,72 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(0);
+
+    connect(ui->logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
+
+    pointQTimer = new QTimer (this);
+    connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
+    pointQTimer->start(1000);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete pointQTimer;
 }
 
-
-void MainWindow::on_loginButton_clicked()
+void MainWindow::mainTimeout()
 {
-    if (ui->idEdit->text() == ""){
-        popupBox.setText("Tyhjä ID-kenttä");
+    qDebug() << mainMenuTimer;
+    if(mainMenuTimer == 0){
+        popupBox.setText("30s kului, kirjaudutaan ulos");
         popupBox.exec();
+        emit mainMove(0);
     }
-    else if (ui->pinEdit->text() == ""){
-        popupBox.setText("Tyhjä PIN-kenttä");
-        popupBox.exec();
-    }
-    else {
-        ui->stackedWidget->setCurrentIndex(1);
+    else{
+        mainMenuTimer--;
     }
 }
 
 
 void MainWindow::on_logoutButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    emit mainMove(0);
 }
 
+void MainWindow::on_transactionButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_balanceButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_depositButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_withdrawButton_clicked()
+{
+
+}
+
+
+//void MainWindow::switchView(short index)
+//{
+//    ui->stackedWidget->setCurrentIndex(index);
+//}
