@@ -9,12 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
+    ui->stackedWidgetMenu->setCurrentIndex(0);
+
+    //connect(ui->logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
 
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
-    pointQTimer->start(1000);
-
+    setTime();
 }
 
 MainWindow::~MainWindow()
@@ -25,11 +26,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::mainTimeout()
 {
+    pointQTimer->start(1000);
     qDebug() << mainMenuTimer;
     if(mainMenuTimer == 0){
-        popupBox.setText("30s kului, kirjaudutaan ulos");
-        popupBox.exec();
-        emit mainMove(0);
+
+        mainMenuTimer = 5;
+        ui->stackedWidgetMenu->setCurrentIndex(1);
+        if (mainMenuTimer ==0){
+            pointQTimer->stop();
+            setTime();
+            ui->stackedWidgetMenu->setCurrentIndex(0);
+            emit mainMove(0);
+        }
+        else{
+            mainMenuTimer--;
+        }
     }
     else{
         mainMenuTimer--;
@@ -39,34 +50,41 @@ void MainWindow::mainTimeout()
 
 void MainWindow::on_logoutButton_clicked()
 {
+    pointQTimer->stop();
+    setTime();
     emit mainMove(0);
 }
 
 void MainWindow::on_transactionButton_clicked()
 {
-
+    pointQTimer->stop();
 }
 
 
 void MainWindow::on_balanceButton_clicked()
 {
-
+    pointQTimer->stop();
 }
 
 
 void MainWindow::on_depositButton_clicked()
 {
-
+    pointQTimer->stop();
 }
 
 
 void MainWindow::on_withdrawButton_clicked()
 {
-
+    pointQTimer->stop();
 }
 
 
-//void MainWindow::switchView(short index)
-//{
-//    ui->stackedWidget->setCurrentIndex(index);
-//}
+void MainWindow::switchView(short index)
+{
+    ui->stackedWidgetMenu->setCurrentIndex(index);
+}
+
+void MainWindow::setTime()
+{
+    mainMenuTimer = 10;//Demotessa aseta 10s, viimeisessä buildissa oltava 30s
+}
