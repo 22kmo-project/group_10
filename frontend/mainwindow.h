@@ -31,15 +31,17 @@ private slots:
     void on_depositButton_clicked();
     void on_withdrawButton_clicked();
 
+    void switchView(short);
+
 private:
     Ui::MainWindow *ui;
     QTimer* pointQTimer;
 
-    short mainMenuTimer = 30;
+    void setTime();
+    short mainMenuTimer;
 
 signals:
     void mainMove(short);
-
 
 };
 #endif // MAINWINDOW_H
