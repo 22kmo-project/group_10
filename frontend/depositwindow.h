@@ -15,8 +15,24 @@ public:
     explicit DepositWindow(QWidget *parent = nullptr);
     ~DepositWindow();
 
+public slots:
+    void mainTimeout();
+
+private slots:
+    void on_returnToMenu_clicked();
+
+
+
 private:
     Ui::DepositWindow *ui;
+    QTimer* pointQTimer;
+
+    void setTime();
+    short mainMenuTimer;
+    short mainMenuTimer2;
+
+signals:
+    void mainMove(short);
 };
 
 #endif // DEPOSITWINDOW_H
