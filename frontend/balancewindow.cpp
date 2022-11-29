@@ -12,3 +12,14 @@ BalanceWindow::~BalanceWindow()
 {
     delete ui;
 }
+
+void BalanceWindow::mainTimeout()
+{
+
+}
+
+void BalanceWindow::on_returnToMenu_clicked()
+{
+    emit mainMove(0);
+}
+

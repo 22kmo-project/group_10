@@ -12,3 +12,14 @@ DepositWindow::~DepositWindow()
 {
     delete ui;
 }
+
+void DepositWindow::mainTimeout()
+{
+
+}
+
+void DepositWindow::on_returnToMenu_clicked()
+{
+    emit mainMove(0);
+}
+

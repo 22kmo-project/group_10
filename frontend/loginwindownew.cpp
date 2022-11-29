@@ -17,18 +17,18 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->setupUi(this);
 
     connect(&mainMenu, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
-    //connect(this, &MainWindow::newImage, this, &MainWindow::setImage);
-//    connect(&cashWithdraw, SIGNAL(changeWidget(int)), this, SLOT(moveToIndex(int)));
-//    connect(&cashDepo, SIGNAL(changeWidget(int)), this, SLOT(moveToIndex(int)));
-//    connect(&balance, SIGNAL(changeWidget(int)), this, SLOT(moveToIndex(int)));
-//    connect(&accountTrans, SIGNAL(changeWidget(int)), this, SLOT(moveToIndex(int)));
+    //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
+    connect(&cashWithdraw, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
+    connect(&cashDepo, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
+    connect(&balance, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
+    connect(&accountTrans, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->stackedWidget->insertWidget(2, &mainMenu);
-//    ui->stackedWidget->insertWidget(2, &cashWithdraw);
-//    ui->stackedWidget->insertWidget(3, &cashDepo);
-//    ui->stackedWidget->insertWidget(4, &balance);
-//    ui->stackedWidget->insertWidget(5, &accountTrans);
+    ui->stackedWidget->insertWidget(3, &cashWithdraw);
+    ui->stackedWidget->insertWidget(4, &cashDepo);
+    ui->stackedWidget->insertWidget(5, &balance);
+    ui->stackedWidget->insertWidget(6, &accountTrans);
 
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(errorMsgTimeout()));
