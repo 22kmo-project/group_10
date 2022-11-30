@@ -28,7 +28,7 @@ CREATE TABLE `asiakas` (
   `idAsiakas` int NOT NULL,
   `nimi` varchar(45) NOT NULL,
   `osoite` varchar(45) NOT NULL,
-  `puh` int NOT NULL,
+  `puh` varchar(45) NOT NULL,
   PRIMARY KEY (`idAsiakas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,6 +39,7 @@ CREATE TABLE `asiakas` (
 
 LOCK TABLES `asiakas` WRITE;
 /*!40000 ALTER TABLE `asiakas` DISABLE KEYS */;
+INSERT INTO `asiakas` VALUES (1,'Testi Henkilo','Kukkaiskuja 3','0401234567');
 /*!40000 ALTER TABLE `asiakas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,10 +77,10 @@ DROP TABLE IF EXISTS `kortti_tili`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kortti_tili` (
-  `idkortti_tili` int NOT NULL AUTO_INCREMENT,
+  `idKortti_tili` int NOT NULL AUTO_INCREMENT,
   `idTili` int NOT NULL,
   `idKortti` int NOT NULL,
-  PRIMARY KEY (`idkortti_tili`),
+  PRIMARY KEY (`idKortti_tili`),
   KEY `tili-kortti_tili_idx` (`idTili`),
   KEY `kortti-kortti_tili_idx` (`idKortti`),
   CONSTRAINT `kortti-kortti_tili` FOREIGN KEY (`idKortti`) REFERENCES `kortti` (`idKortti`) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -178,6 +179,10 @@ LOCK TABLES `tilitapahtumat` WRITE;
 /*!40000 ALTER TABLE `tilitapahtumat` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tilitapahtumat` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'banksimul'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -188,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-24 10:45:50
+-- Dump completed on 2022-11-30 12:30:04
