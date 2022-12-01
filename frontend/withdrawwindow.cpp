@@ -12,3 +12,14 @@ WithdrawWindow::~WithdrawWindow()
 {
     delete ui;
 }
+
+void WithdrawWindow::withdrawTimeout()
+{
+
+}
+
+void WithdrawWindow::on_returnToMenu_clicked()
+{
+    emit mainMove(0);
+}
+

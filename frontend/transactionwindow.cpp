@@ -12,3 +12,14 @@ TransactionWindow::~TransactionWindow()
 {
     delete ui;
 }
+
+void TransactionWindow::mainTimeout()
+{
+
+}
+
+void TransactionWindow::on_returnToMenu_clicked()
+{
+    emit mainMove(0);
+}
+

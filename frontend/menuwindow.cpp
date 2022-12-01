@@ -9,7 +9,6 @@ MenuWindow::MenuWindow(QWidget *parent) :
 
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
-    //connect(ui->logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
 
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
@@ -56,24 +55,32 @@ void MenuWindow::on_logoutButton_clicked()
 void MenuWindow::on_transactionButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(6);
 }
 
 
 void MenuWindow::on_balanceButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(5);
 }
 
 
 void MenuWindow::on_depositButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(4);
 }
 
 
 void MenuWindow::on_withdrawButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(3);
 }
 
 
