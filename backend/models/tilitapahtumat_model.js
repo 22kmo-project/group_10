@@ -3,15 +3,15 @@ const db = require('../database');
 
 const tilitapahtumat = {
   getById: function(id, callback) {
-    return db.query('select * from tilitapahtumat where idTilitapahtumat=?', [id], callback);
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d%m%Y") as "pvm", selite, summa FROM tilitapahtumat; where idTilitapahtumat=?', [id], callback);
   },
   getAll: function(callback) {
-    return db.query('select * from tilitapahtumat', callback);
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat', callback);
   },
   add: function(add_data, callback) {
     return db.query(
-      'insert into tilitapahtumat (idTilitapahtumat,tilinumero,tilitapahtumat_pvm, selite,summa) values(?,?,?,?,?)',
-      [add_data.idTilitapahtumat,add_data.tilinumero, add_data.tilitapahtumat_pvm, add_data.selite, add_data.summa],
+      'insert into tilitapahtumat (idTilitapahtumat,tilinumero,tilitapahtuma_pvm, selite,summa) values(?,?,?,?,?)',
+      [add_data.idTilitapahtumat,add_data.tilinumero, add_data.tilitapahtuma_pvm, add_data.selite, add_data.summa],
       callback
     );
   },
@@ -20,8 +20,8 @@ const tilitapahtumat = {
   },
   update: function(id, update_data, callback) {
     return db.query(
-      'update tilitapahtumat set tilinumero=?,tilitapahtumat_pvm=?, selite=?, summa=? where idTilitapahtumat=?',
-      [update_data.tilinumero, update_data.tilitapahtumat_pvm, update_data.selite, update_data.summa, id],
+      'update tilitapahtumat set tilinumero=?,tilitapahtuma_pvm=?, selite=?, summa=? where idTilitapahtumat=?',
+      [update_data.tilinumero, update_data.tilitapahtuma_pvm, update_data.selite, update_data.summa, id],
       callback
     );
   }

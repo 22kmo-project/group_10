@@ -5,63 +5,51 @@ const kortti = require('../models/kortti_model');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-router.get('/',
-    function (request, response) {
-        kortti.getAll(function (err, dbResult) {
-            if (err) {
-                response.json(err);
-            } else {
-                console.log(dbResult);
-                response.json(dbResult);
-            }
-        })
-    });
-
-router.get('/:id?',
-    function (request, response) {
-        kortti.getById(request.params.id, function (err, dbResult) {
-            if (err) {
-                response.json(err);
-            } else {
-                response.json(dbResult);
-            }
-        })
-    });
-
-
 router.post('/', 
-function(request, response) {
-  kortti.add(request.body, function(err, dbResult) {
-    if (err) {
-      response.json(err);
-    } else {
-      response.json(request.body);
+  function(request, response) {
+    console.log(request.body.idKortti + request.body.pin);
+    if(request.body.idKortti && request.body.pin){
+      const idKortti = request.body.idKortti;
+      const pin = request.body.pin;
+        card.checkPassword(idKortti, function(dbError, dbResult) {
+          if(dbError){
+            response.json(dbError);
+          }
+          else{
+            if (dbResult.length > 0) {
+              bcrypt.compare(pin,dbResult[0].pin, function(err,compareResult) {
+                if(compareResult) {
+                  console.log("Success");
+                  const token = generateAccessToken({ username: idKortti });
+                  response.send(token);
+                }
+                else {
+                    console.log("Wrong password");
+                    console.log(dbResult[0].pin);
+                    response.send(false);
+                }			
+              }
+              );
+            }
+            else{
+              console.log("User does not exist");
+              response.send(false);
+            }
+          }
+          }
+        );
+      }
+    else{
+      console.log("idKortti or password missing");
+      response.send(false);
     }
-  });
-});
+  }
+);
 
+function generateAccessToken(username) {
+    dotenv.config();
+    return jwt.sign(username, process.env.MY_TOKEN, { expiresIn: '1800s' });
+  }
+  
 
-router.delete('/:id', 
-function(request, response) {
-  kortti.delete(request.params.id, function(err, dbResult) {
-    if (err) {
-      response.json(err);
-    } else {
-      response.json(dbResult);
-    }
-  });
-});
-
-
-router.put('/:id', 
-function(request, response) {
-  kortti.update(request.params.id, request.body, function(err, dbResult) {
-    if (err) {
-      response.json(err);
-    } else {
-      response.json(dbResult);
-    }
-  });
-});
-
-module.exports = router;
+module.exports=router;

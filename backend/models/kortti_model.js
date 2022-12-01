@@ -28,6 +28,9 @@ const kortti = {
       [hashedPassword, update_data.idAsiakas, id],
       callback)
     });
+  },
+  checkPassword: function(idKortti, callback){
+    return db.query('select pin from kortti where idKortti=?',[idKortti],callback);
   }
 };
 module.exports = kortti;
