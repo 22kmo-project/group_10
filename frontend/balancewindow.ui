@@ -13,12 +13,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="saldoLabel">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>30</y>
-     <width>49</width>
+     <x>270</x>
+     <y>100</y>
+     <width>131</width>
      <height>16</height>
     </rect>
    </property>
@@ -28,20 +28,90 @@
     </font>
    </property>
    <property name="text">
-    <string>Saldo</string>
+    <string>Tilin saldo</string>
    </property>
   </widget>
   <widget class="QPushButton" name="returnToMenu">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>490</y>
+     <x>450</x>
+     <y>470</y>
      <width>80</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
     <string>Takaisin</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="showBalance">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>220</y>
+     <width>121</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Näytä saldo</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="accountInfo">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>130</y>
+     <width>261</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="accountTraffic">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>310</y>
+     <width>261</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="showAccountTraffic">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>420</y>
+     <width>191</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Näytä tilitapahtumat</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="saldoLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>270</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Tilitapahtumat</string>
    </property>
   </widget>
  </widget>
