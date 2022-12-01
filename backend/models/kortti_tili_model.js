@@ -1,28 +1,28 @@
 const db = require('../database');
 
-const tili_kortti = {
+const kortti_tili = {
   getById: function(id, callback) {
-    return db.query('select * from tili_kortti where id_tili_kortti=?', [id], callback);
+    return db.query('select * from kortti_tili where idKortti_tili=?', [id], callback);
   },
   getAll: function(callback) {
-    return db.query('select * from tili_kortti', callback);
+    return db.query('select * from kortti_tili', callback);
   },
   add: function(add_data, callback) {
     return db.query(
-      'insert into tili_kortti (idtili_kortti,nimi,osoite,puh) values(?,?,?,?)',
-      [add_data.idtili_kortti,add_data.nimi, add_data.osoite, add_data.puh],
+      'insert into kortti_tili (idKortti_tili,idTili,idKortti) values(?,?,?)',
+      [add_data.idKortti_tili,add_data.idTili, add_data.idKortti],
       callback
     );
   },
   delete: function(id, callback) {
-    return db.query('delete from tili_kortti where id_tili_kortti=?', [id], callback);
+    return db.query('delete from kortti_tili where idKortti_tili=?', [id], callback);
   },
   update: function(id, update_data, callback) {
     return db.query(
-      'update tili_kortti set nimi=?,osoite=?, puh=? where id_tili_kortti=?',
-      [update_data.nimi, update_data.osoite, update_data.puh, id],
+      'update kortti_tili set idTili=?,idKortti=?, where idKortti_tili=?',
+      [update_data.idTili, update_data.idKortti, id],
       callback
     );
   }
 };
-module.exports = tili_kortti;
+module.exports = kortti_tili;
