@@ -1,45 +1,42 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "menuwindow.h"
+#include "ui_menuwindow.h"
 
-
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MenuWindow::MenuWindow(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::MenuWindow)
 {
     ui->setupUi(this);
 
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
-    //connect(ui->logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
 
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
     setTime();
 }
 
-MainWindow::~MainWindow()
+MenuWindow::~MenuWindow()
 {
     delete ui;
     delete pointQTimer;
 }
 
-void MainWindow::mainTimeout()
+void MenuWindow::mainTimeout()
 {
     pointQTimer->start(1000);
     qDebug() << mainMenuTimer;
     if(mainMenuTimer == 0){
 
-        mainMenuTimer = 5;
+
         ui->stackedWidgetMenu->setCurrentIndex(1);
-        if (mainMenuTimer ==0){
+        if (mainMenuTimer2 ==0){
             pointQTimer->stop();
             setTime();
             ui->stackedWidgetMenu->setCurrentIndex(0);
             emit mainMove(0);
         }
         else{
-            mainMenuTimer--;
+            mainMenuTimer2--;
         }
     }
     else{
@@ -48,43 +45,52 @@ void MainWindow::mainTimeout()
 }
 
 
-void MainWindow::on_logoutButton_clicked()
+void MenuWindow::on_logoutButton_clicked()
 {
     pointQTimer->stop();
     setTime();
     emit mainMove(0);
 }
 
-void MainWindow::on_transactionButton_clicked()
+void MenuWindow::on_transactionButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(6);
 }
 
 
-void MainWindow::on_balanceButton_clicked()
+void MenuWindow::on_balanceButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(5);
 }
 
 
-void MainWindow::on_depositButton_clicked()
+void MenuWindow::on_depositButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(4);
 }
 
 
-void MainWindow::on_withdrawButton_clicked()
+void MenuWindow::on_withdrawButton_clicked()
 {
     pointQTimer->stop();
+    setTime();
+    emit mainMove(3);
 }
 
 
-void MainWindow::switchView(short index)
+void MenuWindow::switchView(short index)
 {
     ui->stackedWidgetMenu->setCurrentIndex(index);
 }
 
-void MainWindow::setTime()
+void MenuWindow::setTime()
 {
+    mainMenuTimer2= 5;
     mainMenuTimer = 10;//Demotessa aseta 10s, viimeisessä buildissa oltava 30s
 }

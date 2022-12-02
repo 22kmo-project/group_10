@@ -28,7 +28,7 @@ CREATE TABLE `asiakas` (
   `idAsiakas` int NOT NULL,
   `nimi` varchar(45) NOT NULL,
   `osoite` varchar(45) NOT NULL,
-  `puh` int NOT NULL,
+  `puh` varchar(45) NOT NULL,
   PRIMARY KEY (`idAsiakas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,6 +39,7 @@ CREATE TABLE `asiakas` (
 
 LOCK TABLES `asiakas` WRITE;
 /*!40000 ALTER TABLE `asiakas` DISABLE KEYS */;
+INSERT INTO `asiakas` VALUES (1,'Testi Henkilo','Kukkaiskuja 3','0401234567'),(2,'Testi Henkilo2','Testikuja 2','0441234567');
 /*!40000 ALTER TABLE `asiakas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,6 +66,7 @@ CREATE TABLE `kortti` (
 
 LOCK TABLES `kortti` WRITE;
 /*!40000 ALTER TABLE `kortti` DISABLE KEYS */;
+INSERT INTO `kortti` VALUES (1,'$2a$10$jL60Gy0nWV0Jh6vV5tX0T.kwcwMxVoMVnd3yJXMZTEY7BGSE.Q4GW',1);
 /*!40000 ALTER TABLE `kortti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,15 +78,15 @@ DROP TABLE IF EXISTS `kortti_tili`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kortti_tili` (
-  `idkortti_tili` int NOT NULL AUTO_INCREMENT,
+  `idKortti_tili` int NOT NULL AUTO_INCREMENT,
   `idTili` int NOT NULL,
   `idKortti` int NOT NULL,
-  PRIMARY KEY (`idkortti_tili`),
+  PRIMARY KEY (`idKortti_tili`),
   KEY `tili-kortti_tili_idx` (`idTili`),
   KEY `kortti-kortti_tili_idx` (`idKortti`),
   CONSTRAINT `kortti-kortti_tili` FOREIGN KEY (`idKortti`) REFERENCES `kortti` (`idKortti`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `tili-kortti_tili` FOREIGN KEY (`idTili`) REFERENCES `tili` (`idTili`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +95,7 @@ CREATE TABLE `kortti_tili` (
 
 LOCK TABLES `kortti_tili` WRITE;
 /*!40000 ALTER TABLE `kortti_tili` DISABLE KEYS */;
+INSERT INTO `kortti_tili` VALUES (1,1,1);
 /*!40000 ALTER TABLE `kortti_tili` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,6 +121,7 @@ CREATE TABLE `tili` (
 
 LOCK TABLES `tili` WRITE;
 /*!40000 ALTER TABLE `tili` DISABLE KEYS */;
+INSERT INTO `tili` VALUES (1,'FI 01234 56789',420.69);
 /*!40000 ALTER TABLE `tili` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,8 +164,7 @@ DROP TABLE IF EXISTS `tilitapahtumat`;
 CREATE TABLE `tilitapahtumat` (
   `idTilitapahtumat` int NOT NULL,
   `tilinumero` varchar(45) NOT NULL,
-  `tunnus` int NOT NULL,
-  `tilitapahtuma_pvm` varchar(45) NOT NULL,
+  `tilitapahtuma_pvm` date NOT NULL,
   `selite` varchar(45) NOT NULL,
   `summa` double NOT NULL,
   PRIMARY KEY (`idTilitapahtumat`),
@@ -188,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-24 10:45:50
+-- Dump completed on 2022-12-01 16:19:38

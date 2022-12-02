@@ -1,25 +1,21 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MENUWINDOW_H
+#define MENUWINDOW_H
 
-#include <QMainWindow>
-#include <QMessageBox>
+#include <QWidget>
 #include <QTimer>
 #include <QDebug>
 
+namespace Ui {
+class MenuWindow;
+}
 
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow
+class MenuWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    QMessageBox popupBox;
+    explicit MenuWindow(QWidget *parent = nullptr);
+    ~MenuWindow();
 
 public slots:
     void mainTimeout();
@@ -34,14 +30,15 @@ private slots:
     void switchView(short);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MenuWindow *ui;
     QTimer* pointQTimer;
 
     void setTime();
     short mainMenuTimer;
+    short mainMenuTimer2;
 
 signals:
     void mainMove(short);
-
 };
-#endif // MAINWINDOW_H
+
+#endif // MENUWINDOW_H
