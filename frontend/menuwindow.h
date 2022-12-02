@@ -14,7 +14,7 @@ class MenuWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MenuWindow(QWidget *parent = nullptr);
+    explicit MenuWindow( QWidget *parent = nullptr);
     ~MenuWindow();
 
 public slots:

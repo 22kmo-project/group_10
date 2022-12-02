@@ -6,6 +6,7 @@ MenuWindow::MenuWindow(QWidget *parent) :
     ui(new Ui::MenuWindow)
 {
     ui->setupUi(this);
+    //ui->labelUserId->setText(idKortti);
 
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
