@@ -52,7 +52,6 @@ DROP TABLE IF EXISTS `kortti`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kortti` (
   `idKortti` int NOT NULL,
-  `tunnus` varchar(255) NOT NULL,
   `pin` varchar(255) NOT NULL,
   `idAsiakas` int NOT NULL,
   PRIMARY KEY (`idKortti`),
@@ -67,7 +66,7 @@ CREATE TABLE `kortti` (
 
 LOCK TABLES `kortti` WRITE;
 /*!40000 ALTER TABLE `kortti` DISABLE KEYS */;
-INSERT INTO `kortti` VALUES (1,'123456','$2a$10$cqsqojATjdmhiygUTuF3BuUDGbRF7tl20NH9HAoKPDsGcpUG.9K66',1),(2,'987654','$2a$10$AkZmKFvuNGVzJ.VLHyeZOe8GJ/kVWQSkJxfl.eh8D8pdmIKTkB9Q.',2);
+INSERT INTO `kortti` VALUES (1,'$2a$10$jL60Gy0nWV0Jh6vV5tX0T.kwcwMxVoMVnd3yJXMZTEY7BGSE.Q4GW',1);
 /*!40000 ALTER TABLE `kortti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +86,7 @@ CREATE TABLE `kortti_tili` (
   KEY `kortti-kortti_tili_idx` (`idKortti`),
   CONSTRAINT `kortti-kortti_tili` FOREIGN KEY (`idKortti`) REFERENCES `kortti` (`idKortti`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `tili-kortti_tili` FOREIGN KEY (`idTili`) REFERENCES `tili` (`idTili`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +95,7 @@ CREATE TABLE `kortti_tili` (
 
 LOCK TABLES `kortti_tili` WRITE;
 /*!40000 ALTER TABLE `kortti_tili` DISABLE KEYS */;
-INSERT INTO `kortti_tili` VALUES (1,1,1),(2,2,2);
+INSERT INTO `kortti_tili` VALUES (1,1,1);
 /*!40000 ALTER TABLE `kortti_tili` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +121,7 @@ CREATE TABLE `tili` (
 
 LOCK TABLES `tili` WRITE;
 /*!40000 ALTER TABLE `tili` DISABLE KEYS */;
-INSERT INTO `tili` VALUES (1,'FI 01234 56789',420.69),(2,'FI 11111 22222',123.45);
+INSERT INTO `tili` VALUES (1,'FI 01234 56789',420.69);
 /*!40000 ALTER TABLE `tili` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +179,6 @@ CREATE TABLE `tilitapahtumat` (
 
 LOCK TABLES `tilitapahtumat` WRITE;
 /*!40000 ALTER TABLE `tilitapahtumat` DISABLE KEYS */;
-INSERT INTO `tilitapahtumat` VALUES (1,'FI 01234 56789','2022-10-11','testitalletus',11.11),(2,'FI 01234 56789','2022-10-12','testitalletus2',11.11),(3,'FI 01234 56789','2022-10-12','testitalletus3',12.34);
 /*!40000 ALTER TABLE `tilitapahtumat` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -193,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-02 15:11:58
+-- Dump completed on 2022-12-01 16:19:38
