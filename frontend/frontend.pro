@@ -1,4 +1,5 @@
 QT       += core gui
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menuwindow.cpp \
+    myurl.cpp \
     transactionwindow.cpp \
     withdrawwindow.cpp
 
@@ -26,6 +28,7 @@ HEADERS += \
     loginwindownew.h \
     mainwindow.h \
     menuwindow.h \
+    myurl.h \
     transactionwindow.h \
     withdrawwindow.h
 

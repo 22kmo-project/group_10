@@ -7,6 +7,9 @@ const tili = {
   getAll: function(callback) {
     return db.query('select * from tili', callback);
   },
+  getTenLatest: function(callback) {
+    return db.query('select * from tili ORDER BY idTili LIMIT 10;', callback);
+  },
   add: function(add_data, callback) {
     return db.query(
       'insert into tili (idTili,tilinumero,saldo) values(?,?,?)',

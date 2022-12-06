@@ -2,6 +2,10 @@
 #define TRANSACTIONWINDOW_H
 
 #include <QWidget>
+#include <QDebug>
+#include <QtNetwork>
+#include <QNetworkAccessManager>
+#include <QJsonDocument>
 
 namespace Ui {
 class TransactionWindow;
@@ -15,22 +19,42 @@ public:
     explicit TransactionWindow(QWidget *parent = nullptr);
     ~TransactionWindow();
 
+    void setWebToken(const QByteArray &newWebToken);
+
 public slots:
-    void mainTimeout();
+    void transTimeout();
 
 private:
     Ui::TransactionWindow *ui;
     QTimer* pointQTimer;
 
-    void setTime();
-    short mainMenuTimer;
-    short mainMenuTimer2;
+    //PEKAN KOODIA
+    QByteArray webToken;
+    QString accountId;
 
-signals:
-    void mainMove(short);
+    //QNetworkAccessManager *gradeManager;
+    QNetworkAccessManager *transGetManager;
+    QNetworkReply *reply;
+    QByteArray response_data;
+
+    QString name, accountNum, transDay, description, amount ;
+    //LOPPUU
+
+    void setTime();
+    short transWindowTimer;
+    //short mainMenuTimer2;
+
+    void getAccountTransaction(short);
 private slots:
     void on_returnToMenu_clicked();
 
+    void gradeSlot (QNetworkReply *reply);
+    void dataSlot (QNetworkReply *reply);
+
+    void on_dataButton_clicked();
+
+signals:
+    void mainMove(short);
 
 };
 

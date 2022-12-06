@@ -15,13 +15,14 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui(new Ui::LoginWindowNew)
 {
     ui->setupUi(this);
+    ui->idEdit->setFocus();
 
     connect(&mainMenu, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
-    connect(&cashWithdraw, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
-    connect(&cashDepo, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
-    connect(&balance, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
-    connect(&accountTrans, SIGNAL(mainMove(int)), this, SLOT(switchView(int)));
+    connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
+    connect(&cashDepo, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
+    connect(&balance, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
+    connect(&accountTrans, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->stackedWidget->insertWidget(2, &mainMenu);
@@ -32,20 +33,24 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
 
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(errorMsgTimeout()));
+
 }
 
 LoginWindowNew::~LoginWindowNew()
 {
     delete ui;
     delete pointQTimer;
+    pointQTimer=nullptr;
 }
 
 void LoginWindowNew::errorMsgTimeout()
 {
+
     pointQTimer->start(1000);
     if (errorMsgTimer == 0){
         ui->stackedWidget->setCurrentIndex(0);
         pointQTimer->stop();
+        errorMsgTimer = 5;
     }
     else{
         errorMsgTimer--;
@@ -56,28 +61,63 @@ void LoginWindowNew::errorMsgTimeout()
 
 void LoginWindowNew::on_loginButton_clicked()
 {
-    if (ui->idEdit->text() == ""){
-        ui->labelErrorMsg->setText("ID ei kelpaa, yritä uudelleen");
-        errorMsgTimer = 5;
-        switchView(1);
-        errorMsgTimeout();
+    ID=ui->idEdit->text();
+    PIN=ui->pinEdit->text();
+    QJsonObject objectJson;
+    objectJson.insert("idKortti", ID);
+    objectJson.insert("pin", PIN);
+    site_url=MyUrl::getBaseUrl()+"/login";
+    QNetworkRequest request((site_url));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(loginSlot(QNetworkReply*)));
+    reply = loginManager->post(request, QJsonDocument(objectJson).toJson());
+}
 
-    }
-    else if (ui->pinEdit->text() == ""){
-        ui->labelErrorMsg->setText("PIN ei kelpaa, yritä uudelleen");
-        errorMsgTimer = 5;
-        switchView(1);
-        errorMsgTimeout();
-    }
-    else {
-        switchView(2);
-        mainMenu.mainTimeout();
-    }
+void LoginWindowNew::setTextMethod(QString msg)
+{
+    ui->idEdit->clear();
+    ui->pinEdit->clear();
+    ui->labelErrorMsg->setText(msg);
 }
 
 void LoginWindowNew::switchView(short index)
 {
     ui->stackedWidget->setCurrentIndex(index);
     qDebug() << ui->stackedWidget->currentIndex();
+}
 
+void LoginWindowNew::loginSlot(QNetworkReply *reply)
+{
+    response_data=reply->readAll();
+    qDebug() << response_data;
+    short testi=QString::compare(response_data, "false");
+    qDebug() << testi;
+
+    if(response_data.length()==0){
+            setTextMethod("Palvelin ei vastaa");
+            switchView(1);
+            errorMsgTimeout();
+        }
+        else {
+            if(QString::compare(response_data,"-4078")==0){
+                setTextMethod("Virhe tietokanta yhteydessä");
+                switchView(1);
+                errorMsgTimeout();
+            }
+            else {
+                if(testi==0){
+                    setTextMethod("Tunnus ja salasana eivät täsmää");
+                    switchView(1);
+                    errorMsgTimeout();
+                }
+                else {
+                    switchView(2);
+                    mainMenu.setWebToken("Bearer "+response_data);
+                    mainMenu.mainTimeout();
+                }
+            }
+        }
+        reply->deleteLater();
+        loginManager->deleteLater();
 }
