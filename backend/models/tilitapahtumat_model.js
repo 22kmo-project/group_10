@@ -3,10 +3,13 @@ const db = require('../database');
 
 const tilitapahtumat = {
   getById: function(id, callback) {
-    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d%m%Y") as "pvm", selite, summa FROM tilitapahtumat; where idTilitapahtumat=?', [id], callback);
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d%m%Y") as "pvm", selite, summa FROM tilitapahtumat where idTilitapahtumat=?', [id], callback);
   },
   getAll: function(callback) {
     return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat', callback);
+  },
+  getLatest: function(callback) {
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat LIMIT2,5', callback);
   },
   add: function(add_data, callback) {
     return db.query(
