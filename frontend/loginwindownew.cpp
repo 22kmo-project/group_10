@@ -46,7 +46,6 @@ LoginWindowNew::~LoginWindowNew()
 
 void LoginWindowNew::errorMsgTimeout()
 {
-
     pointQTimer->start(1000);
     if (errorMsgTimer == 0){
         ui->stackedWidget->setCurrentIndex(0);
