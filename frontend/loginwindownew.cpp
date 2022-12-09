@@ -21,7 +21,7 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
     connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&cashDepo, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
-    connect(&balance, SIGNAL(mainMove(short, QByteArray)), this, SLOT(switchView(short, QByteArray)));
+    connect(&balance, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     //connect(this, SIGNAL(finished(QNetworkReply*)), &balance, SLOT(getBalanceSlot(QNetworkReply*)));
     connect(&accountTrans, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
 
