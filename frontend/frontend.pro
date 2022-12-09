@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menuwindow.cpp \
+    myurl.cpp \
     transactionwindow.cpp \
     withdrawwindow.cpp
 
@@ -27,6 +28,7 @@ HEADERS += \
     loginwindownew.h \
     mainwindow.h \
     menuwindow.h \
+    myurl.h \
     transactionwindow.h \
     withdrawwindow.h
 

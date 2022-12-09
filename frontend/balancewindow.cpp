@@ -6,6 +6,12 @@ BalanceWindow::BalanceWindow(QWidget *parent) :
     ui(new Ui::BalanceWindow)
 {
     ui->setupUi(this);
+
+}
+
+void BalanceWindow::setWebToken(const QByteArray &newWebToken)
+{
+    webToken = newWebToken;
 }
 
 BalanceWindow::~BalanceWindow()
@@ -18,48 +24,39 @@ void BalanceWindow::mainTimeout()
 
 }
 
-void BalanceWindow::getAccountSaldo(int)
-{
-    QString site_url="http://localhost:3000/book";
-    QNetworkRequest request((site_url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-}
-
 void BalanceWindow::on_returnToMenu_clicked()
 {
     emit mainMove(0);
 }
 
-
 void BalanceWindow::on_showBalance_clicked()
 {
-    QString site_url="http://localhost:3000/tili";
+    QString site_url=MyUrl::getBaseUrl()+"tili";
     QNetworkRequest request((site_url));
-    //WEBTOKEN ALKU
-    QByteArray myToken="Bearer xRstgr...";
-    request.setRawHeader(QByteArray("Authorization"),(myToken));
-    //WEBTOKEN LOPPU
+
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+
     getManager = new QNetworkAccessManager(this);
 
-    connect(getManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(getBalanceSlot(QNetworkReply*)));
+    connect(getManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getBalanceSlot(QNetworkReply*)));
 
     reply = getManager->get(request);
 }
 
 
-void BalanceWindow::getBalanceSlot (QNetworkReply *reply)
+void BalanceWindow::getBalanceSlot(QNetworkReply *reply)
 {
      response_data=reply->readAll();
-     qDebug()<<"DATA : "+response_data;
      QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
      QJsonArray json_array = json_doc.array();
      QString balance;
+
      foreach (const QJsonValue &value, json_array) {
         QJsonObject json_obj = value.toObject();
-        balance+=QString::number(json_obj["saldo"].toDouble())+"\n"+(json_obj["tilinumero"].toString());
+        balance+=QString::number(json_obj["saldo"].toDouble())+" €\n"+(json_obj["tilinumero"].toString());
      }
 
-     ui->accountInfo->setText(balance);
+     ui->balance->setText(balance);
 
      reply->deleteLater();
      getManager->deleteLater();
@@ -68,15 +65,13 @@ void BalanceWindow::getBalanceSlot (QNetworkReply *reply)
 
 void BalanceWindow::on_showAccountTraffic_clicked()
 {
-    QString site_url="http://localhost:3000/tilitapahtumat";
+    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
     QNetworkRequest request((site_url));
-    //WEBTOKEN ALKU
-    QByteArray myToken="Bearer xRstgr...";
-    request.setRawHeader(QByteArray("Authorization"),(myToken));
-    //WEBTOKEN LOPPU
+
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
     getManager = new QNetworkAccessManager(this);
 
-    connect(getManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(getAccountTrafficSlot(QNetworkReply*)));
+    connect(getManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getAccountTrafficSlot(QNetworkReply*)));
 
     reply = getManager->get(request);
 }
@@ -99,7 +94,7 @@ void BalanceWindow::getAccountTrafficSlot (QNetworkReply *reply)
         counter++;
 
         if (counter >= 5) {
-            break;
+            //break;
         }
      }
 

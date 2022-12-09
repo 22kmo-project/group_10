@@ -5,9 +5,14 @@
 #include <QTimer>
 #include <QDebug>
 
+#include <QByteArray>
 #include <QtNetwork>
 #include <QNetworkAccessManager>
+#include <QNetworkRequest>
 #include <QJsonDocument>
+
+#include "myurl.h"
+#include "menuwindow.h"
 
 namespace Ui {
 class BalanceWindow;
@@ -21,6 +26,10 @@ public:
     explicit BalanceWindow(QWidget *parent = nullptr);
     ~BalanceWindow();
 
+    void setWebToken(const QByteArray &newWebToken);
+    QByteArray webToken;
+
+
 public slots:
     void mainTimeout();
 
@@ -31,13 +40,18 @@ private:
     QNetworkAccessManager *getManager;
     QNetworkReply *reply;
     QByteArray response_data;
+    QByteArray token;
 
-    void getAccountSaldo(int);
     void setTime();
     short mainMenuTimer;
     short mainMenuTimer2;
     double accountSaldo;
     int counter;
+    void showInfo();
+    QString site_url;
+    MenuWindow menuWindow;
+
+
 
 signals:
     void mainMove(short);
@@ -47,6 +61,7 @@ private slots:
     void getBalanceSlot (QNetworkReply *reply);
 
     void getAccountTrafficSlot (QNetworkReply *reply);
+    void showAccountInfoSlot (QNetworkReply *reply);
     void on_showBalance_clicked();
     void on_showAccountTraffic_clicked();
 };
