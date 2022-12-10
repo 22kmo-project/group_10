@@ -7,11 +7,11 @@ const dotenv = require('dotenv');
 
 router.post('/', 
   function(request, response) {
-    console.log(request.body.idKortti + request.body.pin);
+    console.log("ID: " + request.body.idKortti +" PIN: "+ request.body.pin);
     if(request.body.idKortti && request.body.pin){
       const idKortti = request.body.idKortti;
       const pin = request.body.pin;
-        card.checkPassword(idKortti, function(dbError, dbResult) {
+        kortti.checkPassword(idKortti, function(dbError, dbResult) {
           if(dbError){
             response.json(dbError);
           }

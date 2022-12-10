@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QTimer>
 #include <QDebug>
+#include <QMainWindow>
+#include <QtNetwork>
+#include <QJsonObject>
+#include "myurl.h"
 
 namespace Ui {
 class MenuWindow;
@@ -14,8 +18,12 @@ class MenuWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MenuWindow(QWidget *parent = nullptr);
+    explicit MenuWindow(QWidget *parent = nullptr );
     ~MenuWindow();
+
+    const QString &getWebToken() const;
+    void setWebToken(const QByteArray &newWebToken);
+    QByteArray getWebToken();
 
 public slots:
     void mainTimeout();
@@ -28,11 +36,16 @@ private slots:
     void on_withdrawButton_clicked();
 
     void switchView(short);
+    //void customerInfoSlot(QNetworkReply* getAccountInfoReply);
 
 private:
     Ui::MenuWindow *ui;
     QTimer* pointQTimer;
+    QNetworkAccessManager *getAccountInfoManager;
+    QNetworkReply *getAccountInfoReply;
+    QByteArray responseData, webToken;
 
+    void accountInfo();
     void setTime();
     short mainMenuTimer;
     short mainMenuTimer2;
