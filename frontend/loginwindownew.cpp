@@ -92,7 +92,6 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
     response_data=reply->readAll();
     qDebug() << response_data;
     short testi=QString::compare(response_data, "false");
-    //qDebug() << testi;
     QNetworkRequest request(site_url);
     request.setRawHeader(QByteArray("Authorization"), QByteArray("Bearer "+response_data));
     qDebug() << request.rawHeader(QByteArray("Authorization"));

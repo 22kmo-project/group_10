@@ -53,7 +53,7 @@ void BalanceWindow::getBalanceSlot(QNetworkReply *reply)
 
      foreach (const QJsonValue &value, json_array) {
         QJsonObject json_obj = value.toObject();
-        balance+=QString::number(json_obj["saldo"].toDouble())+" €\n"+(json_obj["tilinumero"].toString());
+        balance+=QString::number(json_obj["saldo"].toDouble())+" € tilillä: "+(json_obj["tilinumero"].toString()+" \n\n");
      }
 
      ui->balance->setText(balance);
@@ -90,12 +90,6 @@ void BalanceWindow::getAccountTrafficSlot (QNetworkReply *reply)
      foreach (const QJsonValue &value, json_array) {
         QJsonObject json_obj = value.toObject();
         info+=QString::number(json_obj["summa"].toDouble())+" €, selite: "+(json_obj["selite"].toString())+", pvm: "+(json_obj["pvm"].toString())+"\n";
-
-        counter++;
-
-        if (counter >= 5) {
-            //break;
-        }
      }
 
      ui->accountTraffic->setText(info);
