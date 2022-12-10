@@ -41,17 +41,21 @@ private:
     //LOPPUU
 
     void setTime();
-    short transWindowTimer;
-    //short mainMenuTimer2;
+    short transWindowTimer, showTimeoutMsgTimer;
+
 
     void getAccountTransaction(short);
 private slots:
     void on_returnToMenu_clicked();
 
-    void gradeSlot (QNetworkReply *reply);
+
     void dataSlot (QNetworkReply *reply);
 
     void on_dataButton_clicked();
+
+    void on_getNextButton_clicked();
+
+    void on_getPrevButton_clicked();
 
 signals:
     void mainMove(short);

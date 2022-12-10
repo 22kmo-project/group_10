@@ -1,12 +1,13 @@
 #include "menuwindow.h"
 #include "ui_menuwindow.h"
+#include "loginwindow.h"
 
 MenuWindow::MenuWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MenuWindow)
 {
     ui->setupUi(this);
-    ui->labelWelcome->setText("Tervetuloa ");
+
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
 
@@ -18,15 +19,15 @@ MenuWindow::MenuWindow(QWidget *parent) :
 MenuWindow::~MenuWindow()
 {
     delete ui;
-    delete pointQTimer;
-}
-
-void setName()
-{
 
 }
 
-void getName()
+void MenuWindow::setName()
+{    
+    ui->labelWelcome->setText("Tervetuloa ");
+}
+
+void MenuWindow::getName()
 {
 
 }
@@ -39,6 +40,7 @@ void MenuWindow::setWebToken(const QByteArray &newWebToken)
 void MenuWindow::mainTimeout()
 {
     pointQTimer->start(1000);
+    qDebug() << "Aikaa jäljellä ennen uloskirjautumista";
     qDebug() << mainMenuTimer;
     if(mainMenuTimer == 0){
 
@@ -72,6 +74,8 @@ void MenuWindow::on_transactionButton_clicked()
     pointQTimer->stop();
     setTime();
     emit mainMove(6);
+    TransactionWindow transTimerStart;
+    transTimerStart.transTimeout();
 }
 
 
@@ -106,6 +110,8 @@ void MenuWindow::switchView(short index)
 
 void MenuWindow::setTime()
 {
-    mainMenuTimer2= 5;
+    mainMenuTimer2= 5; //virheilmoituksia varten
     mainMenuTimer = 10;//Demotessa aseta 10s, viimeisessä buildissa oltava 30s
 }
+
+

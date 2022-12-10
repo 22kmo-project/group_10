@@ -84,6 +84,7 @@ void LoginWindowNew::setTextMethod(QString msg)
 void LoginWindowNew::switchView(short index)
 {
     ui->stackedWidget->setCurrentIndex(index);
+    qDebug() << "nykyinen sivunumero ";
     qDebug() << ui->stackedWidget->currentIndex();
 }
 
@@ -113,12 +114,22 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
                 }
                 else {
                     switchView(2);
-                    mainMenu.setWebToken("Bearer "+response_data);
-                    //balance.setWebToken("Bearer "+response_data);
+                    setTextMethod("");//tyhjä string, koska halutaan vain tyhjentää tekstikentät
+                    setWebTokenMethod();//tälle saisi keksiä järkevämmän ratkaisun
                     mainMenu.mainTimeout();
                 }
             }
         }
         reply->deleteLater();
         loginManager->deleteLater();
+}
+
+void LoginWindowNew::setWebTokenMethod()
+{
+    mainMenu.setWebToken("Bearer "+response_data);
+    //cashWithdraw.setWebToken("Bearer "+response_data);
+    //cashDepo.setWebToken("Bearer "+response_data);
+    //balance.setWebToken("Bearer "+response_data);
+    accountTrans.setWebToken("Bearer "+response_data);
+
 }

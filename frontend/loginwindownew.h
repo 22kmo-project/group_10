@@ -37,6 +37,7 @@ private slots:
     void setTextMethod(QString);
     void switchView(short);
     void loginSlot (QNetworkReply * reply);
+    void setWebTokenMethod();
 
 private:
     Ui::LoginWindowNew *ui;

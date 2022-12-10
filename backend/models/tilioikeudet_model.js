@@ -24,6 +24,11 @@ const tilioikeudet = {
       [update_data.idTili, update_data.idAsiakas, update_data.omistaja, id],
       callback
     );
-  }
+  },
+  /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+  withdraw: function (data, callback) {
+    return db.query('CALL nosto(?,?,?)', [data.id,data.tilinumTarkistus, data.haluttuSumma], callback);
+},
+
 };
 module.exports = tilioikeudet;

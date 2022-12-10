@@ -9,6 +9,8 @@
 #include <QJsonObject>
 #include "myurl.h"
 
+
+
 namespace Ui {
 class MenuWindow;
 }
@@ -48,6 +50,8 @@ private:
     void setTime();
     short mainMenuTimer;
     short mainMenuTimer2;
+    void setName();
+    void getName();
 
 signals:
     void mainMove(short);

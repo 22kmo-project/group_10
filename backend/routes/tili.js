@@ -84,7 +84,7 @@ function(request, response) {
     if (err) {
       response.json(err);
     } else {
-      if (dbResult["affectedRows"] > 0) { // affectedRows = 1 if updating row was successful
+      if (dbResult["affectedRows"] > 0) { 
         console.log("Success!");
         response.send("Talletus onnistui");
       } else {

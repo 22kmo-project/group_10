@@ -2,10 +2,10 @@ const db = require('../database');
 
 const kortti_tili = {
   getById: function(id, callback) {
-    return db.query('select * from kortti_tili where idKortti_tili=?', [id], callback);
+    return db.query('select idKortti_tili,idTili,idKortti, IF(credit, "true","false")credit from kortti_tili idKortti_tili=?', [id], callback);
   },
   getAll: function(callback) {
-    return db.query('select * from kortti_tili', callback);
+    return db.query('select idKortti_tili,idTili,idKortti, IF(credit, "true","false")credit from kortti_tili', callback);
   },
   add: function(add_data, callback) {
     return db.query(
