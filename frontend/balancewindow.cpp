@@ -6,7 +6,6 @@ BalanceWindow::BalanceWindow(QWidget *parent) :
     ui(new Ui::BalanceWindow)
 {
     ui->setupUi(this);
-
 }
 
 void BalanceWindow::setWebToken(const QByteArray &newWebToken)
@@ -26,7 +25,8 @@ void BalanceWindow::mainTimeout()
 
 void BalanceWindow::on_returnToMenu_clicked()
 {
-    emit mainMove(0);
+    emit mainMove(2);
+    menuWindow.setTime(0, 30);
 }
 
 void BalanceWindow::on_showBalance_clicked()

@@ -9,10 +9,9 @@ MenuWindow::MenuWindow(QWidget *parent) :
     //ui->labelWelcome->setText("Tervetuloa " + id_kortti);
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
-
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
-    setTime();
+    setTime(0, 30);
 }
 
 MenuWindow::~MenuWindow()
@@ -30,54 +29,62 @@ void MenuWindow::setWebToken(const QByteArray &newWebToken)
 void MenuWindow::mainTimeout()
 {
     pointQTimer->start(1000);
-    qDebug() << mainMenuTimer;
-    if(mainMenuTimer == 0){
 
+    if (mainMenuTimer > 0)
+    {
+        mainMenuTimer--;
+        qDebug() << mainMenuTimer << " mainMenuTimer";
 
-        ui->stackedWidgetMenu->setCurrentIndex(1);
-        if (mainMenuTimer2 ==0){
-            pointQTimer->stop();
-            setTime();
-            ui->stackedWidgetMenu->setCurrentIndex(0);
-            emit mainMove(0);
-        }
-        else{
-            mainMenuTimer2--;
+        if (mainMenuTimer == 0)
+        {
+            emit mainMove(2);
+            setTime(0, 30);
         }
     }
-    else{
-        mainMenuTimer--;
+    else
+    {
+        mainMenuTimer2--;
+        qDebug() << mainMenuTimer2 << " mainMenuTimer2";
+        if (mainMenuTimer2 == 0)
+        {
+            logout();
+        }
     }
 }
 
+void MenuWindow::logout()
+{
+    pointQTimer->stop();
+    setTime(0, 30);
+    emit mainMove(0);
+}
 
 void MenuWindow::on_logoutButton_clicked()
 {
-    pointQTimer->stop();
-    setTime();
-    emit mainMove(0);
+    logout();
 }
 
 void MenuWindow::on_transactionButton_clicked()
 {
     pointQTimer->stop();
-    setTime();
+    setTime(10, 0);
     emit mainMove(6);
 }
 
 
 void MenuWindow::on_balanceButton_clicked()
 {
-    pointQTimer->stop();
-    setTime();
+    //pointQTimer->stop();
+    setTime(10, 0);
     emit mainMove(5);
+
 }
 
 
 void MenuWindow::on_depositButton_clicked()
 {
     pointQTimer->stop();
-    setTime();
+    setTime(10, 0);
     emit mainMove(4);
 }
 
@@ -85,7 +92,7 @@ void MenuWindow::on_depositButton_clicked()
 void MenuWindow::on_withdrawButton_clicked()
 {
     pointQTimer->stop();
-    setTime();
+    setTime(10, 0);
     emit mainMove(3);
 }
 
@@ -95,8 +102,9 @@ void MenuWindow::switchView(short index)
     ui->stackedWidgetMenu->setCurrentIndex(index);
 }
 
-void MenuWindow::setTime()
+void MenuWindow::setTime(short time1, short time2)
 {
-    mainMenuTimer2= 5;
-    mainMenuTimer = 10;//Demotessa aseta 10s, viimeisessä buildissa oltava 30s
+    mainMenuTimer = time1;
+    mainMenuTimer2= time2;
 }
+

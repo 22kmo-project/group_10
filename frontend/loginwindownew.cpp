@@ -22,7 +22,6 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&cashDepo, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&balance, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
-    //connect(this, SIGNAL(finished(QNetworkReply*)), &balance, SLOT(getBalanceSlot(QNetworkReply*)));
     connect(&accountTrans, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
 
     ui->stackedWidget->setCurrentIndex(0);
@@ -92,6 +91,7 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
     response_data=reply->readAll();
     qDebug() << response_data;
     short testi=QString::compare(response_data, "false");
+
     QNetworkRequest request(site_url);
     request.setRawHeader(QByteArray("Authorization"), QByteArray("Bearer "+response_data));
     qDebug() << request.rawHeader(QByteArray("Authorization"));
