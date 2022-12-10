@@ -114,6 +114,7 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
                 else {
                     switchView(2);
                     mainMenu.setWebToken("Bearer "+response_data);
+                    //balance.setWebToken("Bearer "+response_data);
                     mainMenu.mainTimeout();
                 }
             }

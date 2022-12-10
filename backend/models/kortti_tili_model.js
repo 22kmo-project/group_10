@@ -23,6 +23,10 @@ const kortti_tili = {
       [update_data.idTili, update_data.idKortti, id],
       callback
     );
-  }
+  },
+  /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+  trueOrFalse: function(callback) {
+    return db.query('select idKortti_tili,idTili,idKortti, IF(credit, "true","false")credit from kortti_tili;', [id], callback);
+  },
 };
 module.exports = kortti_tili;

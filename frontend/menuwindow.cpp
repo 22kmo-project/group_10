@@ -6,7 +6,7 @@ MenuWindow::MenuWindow(QWidget *parent) :
     ui(new Ui::MenuWindow)
 {
     ui->setupUi(this);
-    ui->labelWelcome->setText("Tervetuloa " + id_kortti);
+    ui->labelWelcome->setText("Tervetuloa ");
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
 
@@ -19,6 +19,16 @@ MenuWindow::~MenuWindow()
 {
     delete ui;
     delete pointQTimer;
+}
+
+void setName()
+{
+
+}
+
+void getName()
+{
+
 }
 
 void MenuWindow::setWebToken(const QByteArray &newWebToken)

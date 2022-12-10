@@ -45,17 +45,17 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
     QJsonArray json_array = json_doc.array();
 
     QString info;
-   // counter = 0;
+    short counter = 0;
 
     foreach (const QJsonValue &value, json_array) {
        QJsonObject json_obj = value.toObject();
        info+=QString::number(json_obj["summa"].toDouble())+" €, selite: "+(json_obj["selite"].toString())+", pvm: "+(json_obj["pvm"].toString())+"\n";
 
-     //  counter++;
+       counter++;
 
-//       if (counter >= 5) {
-//           break;
-//       }
+       if (counter >= 10) {
+           break;
+       }
     }
 
     ui->textBrowser->setText(info);
