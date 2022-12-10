@@ -24,7 +24,9 @@ public:
     const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
     QByteArray getWebToken();
+    void setTime(short, short);
 
+    void logout();
 public slots:
     void mainTimeout();
 
@@ -46,7 +48,7 @@ private:
     QByteArray responseData, webToken;
 
     void accountInfo();
-    void setTime();
+
     short mainMenuTimer;
     short mainMenuTimer2;
 
