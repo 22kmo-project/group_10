@@ -1,4 +1,5 @@
 QT       += core gui
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,10 +13,8 @@ QT +=network
 SOURCES += \
     balancewindow.cpp \
     depositwindow.cpp \
-    loginwindow.cpp \
     loginwindownew.cpp \
     main.cpp \
-    mainwindow.cpp \
     menuwindow.cpp \
     myurl.cpp \
     transactionwindow.cpp \
@@ -24,9 +23,7 @@ SOURCES += \
 HEADERS += \
     balancewindow.h \
     depositwindow.h \
-    loginwindow.h \
     loginwindownew.h \
-    mainwindow.h \
     menuwindow.h \
     myurl.h \
     transactionwindow.h \
@@ -35,9 +32,7 @@ HEADERS += \
 FORMS += \
     balancewindow.ui \
     depositwindow.ui \
-    loginwindow.ui \
     loginwindownew.ui \
-    mainwindow.ui \
     menuwindow.ui \
     transactionwindow.ui \
     withdrawwindow.ui

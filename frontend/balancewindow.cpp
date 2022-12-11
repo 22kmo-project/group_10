@@ -169,3 +169,24 @@ void BalanceWindow::getOwnerInfoSlot (QNetworkReply *reply)
      getManager->deleteLater();
 }
 
+
+void BalanceWindow::getAccountTrafficSlot (QNetworkReply *reply)
+{
+     response_data=reply->readAll();
+     qDebug()<<"DATA : "+response_data;
+     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+     QJsonArray json_array = json_doc.array();
+
+     QString info;
+     counter = 0;
+
+     foreach (const QJsonValue &value, json_array) {
+        QJsonObject json_obj = value.toObject();
+        info+=QString::number(json_obj["summa"].toDouble())+" €, selite: "+(json_obj["selite"].toString())+", pvm: "+(json_obj["pvm"].toString())+"\n";
+     }
+
+     ui->accountTraffic->setText(info);
+
+     reply->deleteLater();
+     getManager->deleteLater();
+}

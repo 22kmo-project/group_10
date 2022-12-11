@@ -60,5 +60,15 @@ function(request, response) {
     }
   });
 });
-
+///////////////OMIA LISÄYKSIÄ///////////////////////
+router.get('/currentcustomer/:id?',
+    function (request, response) {
+        tilioikeudet.getCurrentId(request.params.id, function (err, dbResult) {
+            if (err) {
+                response.json(err);
+            } else {
+                response.json(dbResult);
+            }
+        })
+    });
 module.exports = router;

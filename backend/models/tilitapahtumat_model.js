@@ -6,7 +6,7 @@ const tilitapahtumat = {
     return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d%m%Y") as "pvm", selite, summa FROM tilitapahtumat where idTilitapahtumat=?', [id], callback);
   },
   getAll: function(callback) {
-    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat LIMIT 5', callback);
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat order by idTilitapahtumat desc limit 10', callback);
   },
   add: function(add_data, callback) {
     return db.query(
@@ -24,6 +24,13 @@ const tilitapahtumat = {
       [update_data.tilinumero, update_data.tilitapahtuma_pvm, update_data.selite, update_data.summa, id],
       callback
     );
+  },
+  /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+  getTransView: function(id,callback) {
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat where idTilitapahtumat=? order by idTilitapahtumat desc', 
+    [id],callback);
   }
+
 };
+
 module.exports = tilitapahtumat;

@@ -4,7 +4,6 @@
                     HUOM!!!
     Tein tämän tiedoston siltä varalta, että loginwindow, joka perii widget eikä mainwindow
     kuten tämä luokka, alkaa värkkäämään.
-
     HUOMHUOM!!!
     Tämä on nyt uusi Mainwindow, joka ohjautuu menuwindow widgettiin. Älkää toistaiseksi
     koodatko loginwindow ja mainwindow tiedostoja.

@@ -61,4 +61,17 @@ function(request, response) {
   });
 });
 
+/////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+router.get('/naytakymmenen/:id?',
+    function (response) {
+      var sql = "LIMIT 10 OFFSET 10";
+        tilitapahtumat.getTransView(function (err, dbResult) {
+            if (err) {
+                response.json(err);
+            } else {
+                console.log(dbResult);
+                response.json(dbResult);
+            }
+        })
+    });
 module.exports = router;

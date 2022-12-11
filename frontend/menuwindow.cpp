@@ -1,6 +1,7 @@
 #include "menuwindow.h"
 #include "ui_menuwindow.h"
 
+
 MenuWindow::MenuWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MenuWindow)
@@ -69,6 +70,7 @@ void MenuWindow::on_transactionButton_clicked()
     pointQTimer->stop();
     setTime(10, 0);
     emit mainMove(6);
+
 }
 
 
@@ -78,6 +80,7 @@ void MenuWindow::on_balanceButton_clicked()
     //pointQTimer->stop();
     setTime(10, 0);
     emit mainMove(5);
+
 }
 
 

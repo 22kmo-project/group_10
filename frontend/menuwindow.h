@@ -30,6 +30,7 @@ public:
 public slots:
     void mainTimeout();
 
+
 private slots:
     void on_logoutButton_clicked();
     void on_transactionButton_clicked();
