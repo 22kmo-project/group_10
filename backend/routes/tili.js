@@ -20,7 +20,7 @@ router.get('/:id?',
             if (err) {
                 response.json(err);
             } else {
-                response.json(dbResult);
+                response.json(dbResult);  
             }
         })
     });
@@ -57,6 +57,40 @@ function(request, response) {
       response.json(err);
     } else {
       response.json(dbResult);
+    }
+  });
+});
+
+router.post('/withdraw', 
+function(request, response) {
+  tili.withdraw(request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      if (dbResult["affectedRows"] > 0) { // affectedRows = 1 if updating row was successful
+        console.log("Success!");
+        response.send("Nosto onnistui");
+      } else {
+        console.log("Something went wrong!");
+        response.send("Nosto ei onnistunut");
+      }
+    }
+  });
+});
+
+router.post('/deposit', 
+function(request, response) {
+  tili.deposit(request.body, function(err, dbResult) {
+    if (err) {
+      response.json(err);
+    } else {
+      if (dbResult["affectedRows"] > 0) { 
+        console.log("Success!");
+        response.send("Talletus onnistui");
+      } else {
+        console.log("Something went wrong!");
+        response.send("Talletus ei onnistunut");
+      }
     }
   });
 });

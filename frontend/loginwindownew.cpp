@@ -119,6 +119,8 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
                 switchView(2);
                 mainMenu.setWebToken("Bearer "+response_data);
                 balance.setWebToken("Bearer "+response_data);
+                cashWithdraw.setWebToken("Bearer "+response_data);
+
                 mainMenu.mainTimeout();
             }
         }

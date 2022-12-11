@@ -74,10 +74,10 @@ void MenuWindow::on_transactionButton_clicked()
 
 void MenuWindow::on_balanceButton_clicked()
 {
+
     //pointQTimer->stop();
     setTime(10, 0);
     emit mainMove(5);
-
 }
 
 
