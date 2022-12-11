@@ -61,16 +61,18 @@ function(request, response) {
   });
 });
 
-/////////////////////OMIA LISÄYKSIÄ/////////////////////////////
-router.get('/custInfo/:id?',
-  function (request, response) {
-    kortti.getCustomerInfo(request.params.id, function (err, dbResult) {
-      if (err) {
-        response.json(err);
-      } else {
-        response.json(dbResult);
-      }
-    })
-  });
+//omia toimintoja
+router.get('/asiakas/:id?',
+function(request, response) {
+ if (request.params.id) {
+   kortti.getByCustomerId(request.params.id, function(err, dbResult) {
+     if (err) {
+       response.json(err);
+     } else {
+       response.json(dbResult[0]);
+     }
+   });
+ }
+});
 
 module.exports = router;

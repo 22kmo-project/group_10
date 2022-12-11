@@ -40,6 +40,7 @@ private:
     QNetworkAccessManager *getManager;
     QNetworkReply *reply;
     QByteArray response_data;
+    QByteArray response_data2;
     QByteArray token;
 
     void setTime();
@@ -50,6 +51,8 @@ private:
     void showInfo();
     QString site_url;
     MenuWindow menuWindow;
+    QString ownerID;
+
 
 
 
@@ -61,9 +64,14 @@ private slots:
     void getBalanceSlot (QNetworkReply *reply);
 
     void getAccountTrafficSlot (QNetworkReply *reply);
-    //void showAccountInfoSlot (QNetworkReply *reply);
+    void showAccountInfoSlot (QNetworkReply *reply);
     void on_showBalance_clicked();
     void on_showAccountTraffic_clicked();
+    void on_showBalance_2_clicked();
+    void on_showOwnerInfo_clicked();
+    void getOwnerInfoSlot(QNetworkReply *reply);
+    void getCardInfoSlot(QNetworkReply *reply);
+    void getOwnerName(QString);
 };
 
 #endif // BALANCEWINDOW_H

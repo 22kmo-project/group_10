@@ -10,8 +10,6 @@ MenuWindow::MenuWindow(QWidget *parent) :
     //ui->labelWelcome->setText("Tervetuloa " + id_kortti);
     ui->stackedWidgetMenu->setCurrentIndex(0);
 
-
-
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
     setTime(0, 30);
@@ -55,8 +53,6 @@ void MenuWindow::mainTimeout()
     }
 }
 
-
-
 void MenuWindow::logout()
 {
     pointQTimer->stop();
@@ -80,6 +76,7 @@ void MenuWindow::on_transactionButton_clicked()
 
 void MenuWindow::on_balanceButton_clicked()
 {
+
     //pointQTimer->stop();
     setTime(10, 0);
     emit mainMove(5);
@@ -108,15 +105,9 @@ void MenuWindow::switchView(short index)
     ui->stackedWidgetMenu->setCurrentIndex(index);
 }
 
-void MenuWindow::accountInfo()
-{
-
-}
-
 void MenuWindow::setTime(short time1, short time2)
 {
     mainMenuTimer = time1;
     mainMenuTimer2= time2;
 }
-
 

@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QString>
 #include <QNetworkRequest>
+
 #include "menuwindow.h"
 #include "withdrawwindow.h"
 #include "depositwindow.h"
@@ -38,7 +39,6 @@ private slots:
     void setTextMethod(QString);
     void switchView(short);
     void loginSlot (QNetworkReply * reply);
-    void setWebTokenMethod();
 
 private:
     Ui::LoginWindowNew *ui;
@@ -54,9 +54,7 @@ private:
     QNetworkAccessManager * loginManager;
     QNetworkReply *reply;
     QString idKortti, ID, PIN, site_url;
-
     QNetworkRequest *networkRequest;
-    //QByteArray response_data;
 
 signals:
    // void mainClicked(); //voi olla tulevaisuudessa käyttöä, älä poista vielä

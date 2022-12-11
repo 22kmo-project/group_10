@@ -17,6 +17,7 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->idEdit->setFocus();
 
     connect(&mainMenu, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
+    //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
     connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&cashDepo, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&balance, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
@@ -115,18 +116,14 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
             }
             else {
                 switchView(2);
-                setWebTokenMethod();
+                mainMenu.setWebToken("Bearer "+response_data);
+                balance.setWebToken("Bearer "+response_data);
+                cashWithdraw.setWebToken("Bearer "+response_data);
+
                 mainMenu.mainTimeout();
             }
         }
     }
         reply->deleteLater();
         loginManager->deleteLater();
-}
-
-void LoginWindowNew::setWebTokenMethod()
-{
-    mainMenu.setWebToken("Bearer "+response_data);
-    balance.setWebToken("Bearer "+response_data);
-    accountTrans.setWebToken("Bearer "+response_data);
 }

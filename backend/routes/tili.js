@@ -20,7 +20,7 @@ router.get('/:id?',
             if (err) {
                 response.json(err);
             } else {
-                response.json(dbResult);
+                response.json(dbResult);  
             }
         })
     });
@@ -60,7 +60,7 @@ function(request, response) {
     }
   });
 });
- /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+
 router.post('/withdraw', 
 function(request, response) {
   tili.withdraw(request.body, function(err, dbResult) {
@@ -94,4 +94,5 @@ function(request, response) {
     }
   });
 });
+
 module.exports = router;

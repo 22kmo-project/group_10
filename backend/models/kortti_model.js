@@ -32,13 +32,9 @@ const kortti = {
   checkPassword: function(idKortti, callback){
     return db.query('select pin from kortti where idKortti=?',[idKortti],callback);
   },
-
-/////////////////////OMIA LISÄYKSIÄ/////////////////////////////
+  //Omia requesteja
   getByCustomerId: function(id, callback) {
     return db.query('select * from kortti where idAsiakas=?', [id], callback);
-  },
-  getCustomerInfo: function(id, callback) {
-    return db.query('select idKortti, asiakas.nimi from kortti inner join asiakas on asiakas.idAsiakas=kortti.idAsiakas where kortti.idAsiakas = ?;', [id], callback);
   }
 };
 module.exports = kortti;
