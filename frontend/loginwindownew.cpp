@@ -18,11 +18,9 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->idEdit->setFocus();
 
 //kuva
-    //QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
     QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
     ui->labelpic->setPixmap(pix);
-    //view->showFullScreen();
-    //this->setWindowState(Qt::WindowMaximized);
+
 
     //QPixmap bkgnd("../img/background.png"); // These 5 lines sets background image to the window
     pix = pix.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -92,8 +90,6 @@ void LoginWindowNew::setTextMethod(QString msg)
     ui->idEdit->clear();
     ui->pinEdit->clear();
     ui->labelErrorMsg->setText(msg);
-    //ui->labelErrorMsg->setStyleSheet(background-color : red);
-
 }
 
 void LoginWindowNew::switchView(short index)
@@ -146,7 +142,6 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
                     ui->loginButton->hide();
                     switchView(1);
                     errorMsgTimeout();
-                    //ui->labelErrorMsg->setStyleSheet("color: red;");
                     ui->labelErrorMsg->setStyleSheet("background-color : grey");
                 }
             }
