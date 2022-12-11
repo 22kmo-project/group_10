@@ -18,11 +18,6 @@ BalanceWindow::~BalanceWindow()
     delete ui;
 }
 
-void BalanceWindow::mainTimeout()
-{
-
-}
-
 void BalanceWindow::on_returnToMenu_clicked()
 {
     emit mainMove(2);
@@ -97,3 +92,80 @@ void BalanceWindow::getAccountTrafficSlot (QNetworkReply *reply)
      reply->deleteLater();
      getManager->deleteLater();
 }
+
+
+
+
+
+
+
+void BalanceWindow::on_showOwnerInfo_clicked()
+{   QString idKortti = "123456";
+    QString site_url=MyUrl::getBaseUrl()+"kortti/"+idKortti;
+    QNetworkRequest request((site_url));
+
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    getManager = new QNetworkAccessManager(this);
+
+    connect(getManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getCardInfoSlot(QNetworkReply*)));
+
+    reply = getManager->get(request);
+}
+
+void BalanceWindow::getCardInfoSlot (QNetworkReply *reply)
+{
+     response_data=reply->readAll();
+     qDebug()<<"DATA : "+response_data;
+     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+     QJsonArray json_array = json_doc.array();
+
+     QString idAsiakas;
+     counter = 0;
+
+     foreach (const QJsonValue &value, json_array) {
+        QJsonObject json_obj = value.toObject();
+        idAsiakas+=QString::number(json_obj["idAsiakas"].toInt());
+        //ownerInfo+=QString::number(json_obj["asiakasId"].toInt())+" "+(json_obj["nimi"].toString())+"\n";
+        qDebug() << "ID " << idAsiakas;
+     }
+
+     getOwnerName(idAsiakas);
+}
+
+
+void BalanceWindow::getOwnerName(QString idAsiakas)
+{
+    qDebug() << "getOwnerName";
+    qDebug() << "ID " << idAsiakas;
+    QString site_url=MyUrl::getBaseUrl()+"asiakas/"+idAsiakas;
+    QNetworkRequest request((site_url));
+
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    getManager = new QNetworkAccessManager(this);
+
+    connect(getManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(getOwnerInfoSlot(QNetworkReply*)));
+
+    reply = getManager->get(request);
+}
+
+void BalanceWindow::getOwnerInfoSlot (QNetworkReply *reply)
+{
+     response_data=reply->readAll();
+     qDebug()<<"DATA : "+response_data;
+     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+     QJsonArray json_array = json_doc.array();
+
+     QString ownerInfo;
+     counter = 0;
+
+     foreach (const QJsonValue &value, json_array) {
+        QJsonObject json_obj = value.toObject();
+        ownerInfo+=QString::number(json_obj["idAsiakas"].toInt())+" "+(json_obj["nimi"].toString())+"\n";
+     }
+
+     ui->owner->setText(ownerInfo);
+
+     reply->deleteLater();
+     getManager->deleteLater();
+}
+
