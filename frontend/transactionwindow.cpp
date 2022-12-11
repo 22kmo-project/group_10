@@ -89,56 +89,61 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
 
     foreach (const QJsonValue &value, json_array) {
         QJsonObject json_obj = value.toObject();
-        info+=QString::number(json_obj["summa"].toDouble())+" €, selite: "+(json_obj["selite"].toString())+", pvm: "+(json_obj["pvm"].toString())+"\n";
+        idIndex+=QString::number(json_obj["idTilitapahtumat"].toInt());
+        idIndex = counter;
+        info+="summa: "+QString::number(json_obj["summa"].toDouble())+" €\t Selite: "+(json_obj["selite"].toString())+"\t pvm: "+(json_obj["pvm"].toString())+"\n";
+        summa+=QString::number(json_obj["summa"].toDouble());
 
 
         counter++;
-
         if (counter >= counter+10) {
+
+
             break;
         }
+
     }
 
     ui->textBrowser->setText(info);
     //////OMA
-    QTableWidget* transTable;
-    transTable = ui->transactionTable;
-    for (short row=0; row < transTable->rowCount(); row++)
-    {
-        QTableWidgetItem* item;
-        for (short colu=0;colu < transTable->columnCount(); colu++)
-        {
+//    QTableWidget* transTable;
+//    transTable = ui->transactionTable;
+//    for (short row=0; row < transTable->rowCount(); row++)
+//    {
+//        QTableWidgetItem* item;
+//        for (short colu=0;colu < transTable->columnCount(); colu++)
+//        {
 
-            item = new QTableWidgetItem;
-//            switch (colu) {
-//            case 0:
-//                item->setText(summa);
-//                break;
-//            case 1:
-//                item->setText(selite);
-//                break;
-//            case 2:
+//            item = new QTableWidgetItem;
+////            switch (colu) {
+////            case 0:
+////                item->setText(summa);
+////                break;
+////            case 1:
+////                item->setText(selite);
+////                break;
+////            case 2:
+////                item->setText(pvm);
+////                break;
+////            default:
+////                qDebug() << "nyt meni jokin pieleen";
+////                break;
+////            }
+//            if(colu == 0)
+//            {
 //                item->setText(pvm);
-//                break;
-//            default:
-//                qDebug() << "nyt meni jokin pieleen";
-//                break;
 //            }
-            if(colu == 0)
-            {
-                item->setText(pvm);
-            }
-            if(colu == 1)
-            {
-                item->setText(selite);
-            }
-            if(colu == 2)
-            {
-                item->setText(decodedData);
-            }
-            transTable->setItem(row,colu,item);
-        }
-    }
+//            if(colu == 1)
+//            {
+//                item->setText(selite);
+//            }
+//            if(colu == 2)
+//            {
+//                item->setText(decodedData);
+//            }
+//            transTable->setItem(row,colu,item);
+//        }
+//    }
     ///LOPPUU
     reply->deleteLater();
     transGetManager->deleteLater();
