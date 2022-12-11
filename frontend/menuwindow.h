@@ -25,7 +25,7 @@ public:
     void setWebToken(const QByteArray &newWebToken);
     QByteArray getWebToken();
     void setTime(short, short);
-     void logout();
+    void logout();
 
 public slots:
     void mainTimeout();

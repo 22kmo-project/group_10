@@ -1,5 +1,6 @@
 #ifndef WITHDRAWWINDOW_H
 #define WITHDRAWWINDOW_H
+
 #include <QDebug>
 #include <QWidget>
 #include <QTimer>
@@ -10,6 +11,7 @@
 
 #include "myurl.h"
 #include "menuwindow.h"
+
 
 namespace Ui {
 class WithdrawWindow;

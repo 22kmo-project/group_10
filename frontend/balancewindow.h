@@ -61,7 +61,7 @@ private slots:
     void getBalanceSlot (QNetworkReply *reply);
 
     void getAccountTrafficSlot (QNetworkReply *reply);
-   // void showAccountInfoSlot (QNetworkReply *reply);
+    void showAccountInfoSlot (QNetworkReply *reply);
     void on_showBalance_clicked();
     void on_showAccountTraffic_clicked();
 };

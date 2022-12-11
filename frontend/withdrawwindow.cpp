@@ -2,28 +2,28 @@
 #include "ui_withdrawwindow.h"
 #include "myurl.h"
 
+
 WithdrawWindow::WithdrawWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WithdrawWindow)
 {
     ui->setupUi(this);
-
-   withdrawQTimer = new QTimer (this);
-   connect(withdrawQTimer, SIGNAL(timeout()), this, SLOT(withdrawTimeout()));
-   setTime(0, 30);
-
+    
+    withdrawQTimer = new QTimer (this);
+    connect(withdrawQTimer, SIGNAL(timeout()), this, SLOT(withdrawTimeout()));
+    setTime(0, 30);
 }
 
 WithdrawWindow::~WithdrawWindow()
 {
     delete ui;
+
     delete withdrawQTimer;
 }
 
 void WithdrawWindow::setWebToken(const QByteArray &newWebToken)
 {
     webToken= newWebToken;
-
 }
 
 void WithdrawWindow::withdrawTimeout()
@@ -298,3 +298,4 @@ void WithdrawWindow::setTime(short time1, short time2)
     withdrawMenuTimer = time1;
     withdrawMenuTimer2= time2;
 }
+

@@ -35,14 +35,4 @@ const tili = {
   }
 };
 
-//Tästä alkaa muokattu
-/*
-withdraw: function (data, callback) {
-  return db.query('CALL nosto(?,?,?)', [data.id,data.tilinumTarkistus, data.haluttuSumma], callback);
-},
-deposit: function (data, callback) {
-return db.query('CALL talletus(?,?)', [data.tilinumTarkistus, data.talletettuSumma], callback);
-},
-};
-*/
 module.exports = tili;
