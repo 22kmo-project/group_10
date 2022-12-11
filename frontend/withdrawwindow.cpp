@@ -8,8 +8,6 @@ WithdrawWindow::WithdrawWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-
    withdrawQTimer = new QTimer (this);
    connect(withdrawQTimer, SIGNAL(timeout()), this, SLOT(withdrawTimeout()));
    setTime(0, 30);
@@ -20,8 +18,6 @@ WithdrawWindow::~WithdrawWindow()
 {
     delete ui;
     delete withdrawQTimer;
-
-
 }
 
 void WithdrawWindow::setWebToken(const QByteArray &newWebToken)
@@ -32,47 +28,28 @@ void WithdrawWindow::setWebToken(const QByteArray &newWebToken)
 
 void WithdrawWindow::withdrawTimeout()
 {
-   /* withdrawQTimer->start(1000);
-    if(withdrawMenuTimer2 ==0){
-        ui->stackedWidget->setCurrentIndex(0);
-        withdrawQTimer->stop();
-    }
-    else{
-        withdrawMenuTimer2--;
-        qDebug()<< withdrawMenuTimer2;
-
-}
-
-*/
-
-
-
      withdrawQTimer->start(1000);
     if (withdrawMenuTimer == 0)
     {
         ui->stackedWidget->setCurrentIndex(0);
         withdrawQTimer->stop();
         withdrawMenuTimer=5;
-
-
     }
     else{
         withdrawMenuTimer--;
-
     }
-
-
-
 }
 
-void WithdrawWindow::withdrawAmount(int testi)
+void WithdrawWindow::withdrawAmount(QString summa)
 {
-     QString site_url=MyUrl::getBaseUrl()+"tili/withdraw/";
-     QNetworkRequest request((site_url));
-     QJsonObject json_obj;
-    json_obj.insert("haluttuSumma",testi);
-    json_obj.insert("id","1");
-    json_obj.insert("tilinumTarkistus","FI 01234 56789");
+    double summa_double = QString(summa).toDouble();
+    QString site_url=MyUrl::getBaseUrl()+"tili/withdraw";
+    QNetworkRequest request((site_url));
+    QJsonObject json_obj;
+    json_obj.insert("haluttuSumma",summa_double);
+    json_obj.insert("id","101");
+    json_obj.insert("tilinumTarkistus","FI 00000000");
+    qDebug() << summa_double << "nosto " << json_obj;
 
      request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
      request.setRawHeader(QByteArray("Authorization"),(webToken));
@@ -83,8 +60,6 @@ void WithdrawWindow::withdrawAmount(int testi)
 
      reply = getManager->post(request,QJsonDocument(json_obj).toJson());
 }
-
-
 
 void WithdrawWindow::withdrawSlot(QNetworkReply *reply)
 {
@@ -105,24 +80,15 @@ void WithdrawWindow::withdrawSlot(QNetworkReply *reply)
                else {
                    if(response_data.contains("-4078")){
                        qDebug()<<"Error in connection";
-
                    }
                    else {
                        qDebug()<<accountId;
-
-
-
-
                    }
 
                }
            reply->deleteLater();
            getManager->deleteLater();
            }
-
-
-
-
 
   /*  foreach (const QJsonValue &value, json_array) {
       QJsonObject json_obj = value.toObject();
@@ -173,9 +139,7 @@ void WithdrawWindow::getBalanceSlot(QNetworkReply *reply)
 
         foreach (const QJsonValue &value, json_array) {
           QJsonObject json_obj = value.toObject();
-          cashWithdraw+=QString::number(json_obj["saldo"].toDouble())+"€\n";
-
-
+          cashWithdraw+=QString::number(json_obj["saldo"].toDouble())+" €, tilillä: "+json_obj["tilinumero"].toString()+"\n\n";
         }
 
         ui->textEdit->setText(cashWithdraw);
@@ -184,6 +148,10 @@ void WithdrawWindow::getBalanceSlot(QNetworkReply *reply)
         getManager->deleteLater();
 }
 
+
+/*
+ *  EI KÄYTETÄ TÄTÄ ENÄÄ (:
+ *
 void WithdrawWindow::on_tili_button_clicked()
 {
 
@@ -223,35 +191,49 @@ void WithdrawWindow::getAccountSlot(QNetworkReply *reply)
     reply->deleteLater();
     getManager->deleteLater();
 }
+*/
+
+
+
+
+
 
 
 void WithdrawWindow::on_button_20_clicked()
 {
- /*   ui->button_20->text();
+    amount="20";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
+    ui->button_20->text();
     ui->label_5->setText("Nostit summan 20€");
     switchView(1);
     withdrawMenuTimer = 3;
     withdrawTimeout();
-*/
-    amount=20;
-    withdrawAmount(amount);
  }
 
 
 void WithdrawWindow::on_button_40_clicked()
 {
+    amount="40";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
     ui->button_40->text();
     ui->label_5->setText("Nostit summan 40€");   
+
     switchView(1);
-
-    //withdrawMenuTimer = 3;
-   withdrawTimeout();
-
+    withdrawMenuTimer = 3;
+    withdrawTimeout();
 }
 
 
 void WithdrawWindow::on_button_60_clicked()
 {
+    amount="60";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
     ui->button_60->text();
     ui->label_5->setText("Nostit summan 60€");
     switchView(1);
@@ -263,6 +245,10 @@ void WithdrawWindow::on_button_60_clicked()
 
 void WithdrawWindow::on_button_100_clicked()
 {
+    amount="100";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
     ui->button_100->text();
     ui->label_5->setText("Nostit summan 100€");
     switchView(1);
@@ -274,6 +260,10 @@ void WithdrawWindow::on_button_100_clicked()
 
 void WithdrawWindow::on_button_200_clicked()
 {
+    amount="200";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
     ui->button_200->text();
     ui->label_5->setText("Nostit summan 200€");
     switchView(1);
@@ -285,6 +275,10 @@ void WithdrawWindow::on_button_200_clicked()
 
 void WithdrawWindow::on_button_500_clicked()
 {
+    amount="500";
+    withdrawAmount(amount);
+    qDebug() << amount;
+
     ui->button_500->text();
     ui->label_5->setText("Nostit summan 500€");
     switchView(1);
@@ -296,7 +290,6 @@ void WithdrawWindow::on_button_500_clicked()
 void WithdrawWindow::switchView(short index)
 {
     ui->stackedWidget->setCurrentIndex(index);
-
 }
 
 

@@ -63,7 +63,7 @@ function(request, response) {
 
 
 //Tästä uusi
-/*
+
 router.post('/withdraw', 
 function(request, response) {
   tili.withdraw(request.body, function(err, dbResult) {
@@ -97,5 +97,5 @@ function(request, response) {
     }
   });
 });
-*/
+
 module.exports = router;

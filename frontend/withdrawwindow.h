@@ -38,8 +38,8 @@ private:
 
 void showAccount();
 
-int amount;
-void withdrawAmount(int);
+QString amount;
+    void withdrawAmount(QString);
     QByteArray token;
 
 
