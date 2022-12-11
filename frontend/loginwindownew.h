@@ -8,7 +8,7 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 #include <QString>
-
+#include <QNetworkRequest>
 #include "menuwindow.h"
 #include "withdrawwindow.h"
 #include "depositwindow.h"
@@ -27,6 +27,7 @@ class LoginWindowNew : public QMainWindow
 public:
     explicit LoginWindowNew(QWidget *parent = nullptr);
     ~LoginWindowNew();
+    QByteArray response_data;
 
 public slots:
     void errorMsgTimeout();
@@ -52,8 +53,10 @@ private:
 
     QNetworkAccessManager * loginManager;
     QNetworkReply *reply;
-    QByteArray response_data;
     QString idKortti, ID, PIN, site_url;
+
+    QNetworkRequest *networkRequest;
+    //QByteArray response_data;
 
 signals:
    // void mainClicked(); //voi olla tulevaisuudessa käyttöä, älä poista vielä

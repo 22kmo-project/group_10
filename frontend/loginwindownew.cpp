@@ -4,7 +4,6 @@
                     HUOM!!!
     Tein tämän tiedoston siltä varalta, että loginwindow, joka perii widget eikä mainwindow
     kuten tämä luokka, alkaa värkkäämään.
-
     HUOMHUOM!!!
     Tämä on nyt uusi Mainwindow, joka ohjautuu menuwindow widgettiin. Älkää toistaiseksi
     koodatko loginwindow ja mainwindow tiedostoja.
@@ -18,7 +17,6 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->idEdit->setFocus();
 
     connect(&mainMenu, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
-    //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
     connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&cashDepo, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     connect(&balance, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
@@ -45,7 +43,6 @@ LoginWindowNew::~LoginWindowNew()
 
 void LoginWindowNew::errorMsgTimeout()
 {
-
     pointQTimer->start(1000);
     if (errorMsgTimer == 0){
         ui->stackedWidget->setCurrentIndex(0);
@@ -84,7 +81,6 @@ void LoginWindowNew::setTextMethod(QString msg)
 void LoginWindowNew::switchView(short index)
 {
     ui->stackedWidget->setCurrentIndex(index);
-    qDebug() << "nykyinen sivunumero ";
     qDebug() << ui->stackedWidget->currentIndex();
 }
 
@@ -93,33 +89,37 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
     response_data=reply->readAll();
     qDebug() << response_data;
     short testi=QString::compare(response_data, "false");
-    qDebug() << testi;
+
+    QNetworkRequest request(site_url);
+    request.setRawHeader(QByteArray("Authorization"), QByteArray("Bearer "+response_data));
+    qDebug() << request.rawHeader(QByteArray("Authorization"));
+
 
     if(response_data.length()==0){
             setTextMethod("Palvelin ei vastaa");
             switchView(1);
             errorMsgTimeout();
+    }
+    else
+    {
+        if(QString::compare(response_data,"-4078")==0){
+            setTextMethod("Virhe tietokanta yhteydessä");
+            switchView(1);
+            errorMsgTimeout();
         }
         else {
-            if(QString::compare(response_data,"-4078")==0){
-                setTextMethod("Virhe tietokanta yhteydessä");
+            if(testi==0){
+                setTextMethod("Tunnus ja salasana eivät täsmää");
                 switchView(1);
                 errorMsgTimeout();
             }
             else {
-                if(testi==0){
-                    setTextMethod("Tunnus ja salasana eivät täsmää");
-                    switchView(1);
-                    errorMsgTimeout();
-                }
-                else {
-                    switchView(2);
-                    setTextMethod("");//tyhjä string, koska halutaan vain tyhjentää tekstikentät
-                    setWebTokenMethod();//tälle saisi keksiä järkevämmän ratkaisun
-                    mainMenu.mainTimeout();
-                }
+                switchView(2);
+                setWebTokenMethod();
+                mainMenu.mainTimeout();
             }
         }
+    }
         reply->deleteLater();
         loginManager->deleteLater();
 }
@@ -127,9 +127,6 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
 void LoginWindowNew::setWebTokenMethod()
 {
     mainMenu.setWebToken("Bearer "+response_data);
-    //cashWithdraw.setWebToken("Bearer "+response_data);
-    //cashDepo.setWebToken("Bearer "+response_data);
-    //balance.setWebToken("Bearer "+response_data);
+    balance.setWebToken("Bearer "+response_data);
     accountTrans.setWebToken("Bearer "+response_data);
-
 }

@@ -11,6 +11,7 @@ TransactionWindow::TransactionWindow(QWidget *parent) :
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(transTimeout()));
     setTime();
+
 }
 
 TransactionWindow::~TransactionWindow()
@@ -19,12 +20,6 @@ TransactionWindow::~TransactionWindow()
 
 }
 
-void TransactionWindow::getAccountTransaction(short)
-{
-    QString site_url="http://localhost:3000/tilitapahtumat";
-    QNetworkRequest request((site_url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-}
 
 void TransactionWindow::transTimeout()
 {
@@ -57,13 +52,14 @@ void TransactionWindow::setTime()
 void TransactionWindow::setWebToken(const QByteArray &newWebToken)
 {
     webToken = newWebToken;
+    getDataSlot();
 }
 
 void TransactionWindow::on_returnToMenu_clicked()
 {
     emit mainMove(2);
     MenuWindow mainMenu;
-    mainMenu.mainTimeout();
+    //mainMenu.mainTimeout();
 }
 
 
@@ -73,19 +69,32 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
     //qDebug()<<"DATA : "+response_data;
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
     QJsonArray json_array = json_doc.array();
-    QString info, idIndex, summa, selite, pvm;
-    short counter = 0;
+    QJsonObject json_objT = json_doc.object();
+    QString info, idIndex, summa, selite, pvm, decodedData;
+
+
+    short counter = counterId;
+    if(nextButtonClicked==true){
+        counter+=10;
+    }
+    if(PrevButtonClicked==true){
+        counter-=10;
+        if(counter < 0)
+        {
+            counter = 0;
+        }
+
+    }
+    counterId = counter;
 
     foreach (const QJsonValue &value, json_array) {
         QJsonObject json_obj = value.toObject();
         info+=QString::number(json_obj["summa"].toDouble())+" €, selite: "+(json_obj["selite"].toString())+", pvm: "+(json_obj["pvm"].toString())+"\n";
-        idIndex+=QString::number(json_obj["idTIlitapahtumat"].toInt());
-        summa+=QString::number(json_obj["summa"].toDouble());
-        selite+=(json_obj["selite"].toString());
-        pvm+=(json_obj["pvm"].toString());
+
+
         counter++;
 
-        if (counter >= 10) {
+        if (counter >= counter+10) {
             break;
         }
     }
@@ -97,8 +106,9 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
     for (short row=0; row < transTable->rowCount(); row++)
     {
         QTableWidgetItem* item;
-        for (short colu=0;colu <transTable->columnCount(); colu++)
+        for (short colu=0;colu < transTable->columnCount(); colu++)
         {
+
             item = new QTableWidgetItem;
 //            switch (colu) {
 //            case 0:
@@ -116,15 +126,15 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
 //            }
             if(colu == 0)
             {
-                item->setText("pvm");
+                item->setText(pvm);
             }
             if(colu == 1)
             {
-                item->setText("selite");
+                item->setText(selite);
             }
             if(colu == 2)
             {
-                item->setText("summa");
+                item->setText(decodedData);
             }
             transTable->setItem(row,colu,item);
         }
@@ -132,13 +142,29 @@ void TransactionWindow::dataSlot(QNetworkReply *reply)
     ///LOPPUU
     reply->deleteLater();
     transGetManager->deleteLater();
+    nextButtonClicked=false;
+    PrevButtonClicked=false;
+
 }
 
 void TransactionWindow::on_dataButton_clicked()
 {
+//    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
+//    QNetworkRequest request((site_url));
+
+//    request.setRawHeader(QByteArray("Authorization"),(webToken));
+//    transGetManager = new QNetworkAccessManager(this);
+
+//    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+
+//    reply = transGetManager->get(request);
+}
+
+void TransactionWindow::getDataSlot()
+{
     QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
     QNetworkRequest request((site_url));
-
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader(QByteArray("Authorization"),(webToken));
     transGetManager = new QNetworkAccessManager(this);
 
@@ -150,12 +176,30 @@ void TransactionWindow::on_dataButton_clicked()
 
 void TransactionWindow::on_getNextButton_clicked()
 {
-    connect(transGetManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+    nextButtonClicked=true;
+    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
+    QNetworkRequest request((site_url));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    transGetManager = new QNetworkAccessManager(this);
+
+    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+
+    reply = transGetManager->get(request);
 }
 
 
 void TransactionWindow::on_getPrevButton_clicked()
 {
-    connect(transGetManager, SIGNAL(finished (QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+    PrevButtonClicked =true;
+    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
+    QNetworkRequest request((site_url));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader(QByteArray("Authorization"),(webToken));
+    transGetManager = new QNetworkAccessManager(this);
+
+    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+
+    reply = transGetManager->get(request);
 }
 

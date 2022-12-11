@@ -25,7 +25,7 @@ const kortti_tili = {
     );
   },
   /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
-  trueOrFalse: function(callback) {
+  trueOrFalse: function(callback) { //tämä on turhake, lisätty kahteen ekaan requestiin 
     return db.query('select idKortti_tili,idTili,idKortti, IF(credit, "true","false")credit from kortti_tili;', [id], callback);
   },
 };

@@ -7,6 +7,7 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 
+
 namespace Ui {
 class TransactionWindow;
 }
@@ -24,15 +25,16 @@ public:
 public slots:
     void transTimeout();
 
+
 private:
     Ui::TransactionWindow *ui;
     QTimer* pointQTimer;
+
 
     //PEKAN KOODIA
     QByteArray webToken;
     QString accountId;
 
-    //QNetworkAccessManager *gradeManager;
     QNetworkAccessManager *transGetManager;
     QNetworkReply *reply;
     QByteArray response_data;
@@ -41,10 +43,10 @@ private:
     //LOPPUU
 
     void setTime();
-    short transWindowTimer, showTimeoutMsgTimer;
+    short transWindowTimer, showTimeoutMsgTimer, counterId;
+    void getDataSlot();
+    bool nextButtonClicked, PrevButtonClicked = false;
 
-
-    void getAccountTransaction(short);
 private slots:
     void on_returnToMenu_clicked();
 
@@ -59,6 +61,7 @@ private slots:
 
 signals:
     void mainMove(short);
+
 
 };
 

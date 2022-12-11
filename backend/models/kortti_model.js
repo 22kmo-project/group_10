@@ -32,6 +32,7 @@ const kortti = {
   checkPassword: function(idKortti, callback){
     return db.query('select pin from kortti where idKortti=?',[idKortti],callback);
   },
+
 /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
   getByCustomerId: function(id, callback) {
     return db.query('select * from kortti where idAsiakas=?', [id], callback);

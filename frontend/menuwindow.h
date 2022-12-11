@@ -8,8 +8,7 @@
 #include <QtNetwork>
 #include <QJsonObject>
 #include "myurl.h"
-
-
+#include "transactionwindow.h"
 
 namespace Ui {
 class MenuWindow;
@@ -20,14 +19,18 @@ class MenuWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MenuWindow(QWidget *parent = nullptr );
+    explicit MenuWindow(QWidget *parent = nullptr);
     ~MenuWindow();
 
     const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
+    QByteArray getWebToken();
+    void setTime(short, short);
 
+    void logout();
 public slots:
     void mainTimeout();
+
 
 private slots:
     void on_logoutButton_clicked();
@@ -45,13 +48,12 @@ private:
     QNetworkAccessManager *getAccountInfoManager;
     QNetworkReply *getAccountInfoReply;
     QByteArray responseData, webToken;
-
+    QString setIdAsiakas;
+    TransactionWindow goToTransaction;
     void accountInfo();
-    void setTime();
+
     short mainMenuTimer;
     short mainMenuTimer2;
-    void setName();
-    void getName();
 
 signals:
     void mainMove(short);
