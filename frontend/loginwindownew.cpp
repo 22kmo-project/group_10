@@ -17,6 +17,20 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->setupUi(this);
     ui->idEdit->setFocus();
 
+//kuva
+    //QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
+    QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
+    ui->labelpic->setPixmap(pix);
+    //view->showFullScreen();
+    //this->setWindowState(Qt::WindowMaximized);
+
+    //QPixmap bkgnd("../img/background.png"); // These 5 lines sets background image to the window
+    pix = pix.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, pix);
+    this->setPalette(palette);
+
+
     connect(&mainMenu, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
     //connect(this, &MainWindow::newImage, this, &MainWindow::setImage); //tätäkin signaalin yhdistyskoodia voi kokeilla, QT suosittelee
     connect(&cashWithdraw, SIGNAL(mainMove(short)), this, SLOT(switchView(short)));
@@ -78,6 +92,8 @@ void LoginWindowNew::setTextMethod(QString msg)
     ui->idEdit->clear();
     ui->pinEdit->clear();
     ui->labelErrorMsg->setText(msg);
+    //ui->labelErrorMsg->setStyleSheet(background-color : red);
+
 }
 
 void LoginWindowNew::switchView(short index)
@@ -101,6 +117,7 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
             setTextMethod("Palvelin ei vastaa");
             switchView(1);
             errorMsgTimeout();
+            ui->labelErrorMsg->setStyleSheet("background-color : grey");
     }
     else
     {
@@ -108,12 +125,14 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
             setTextMethod("Virhe tietokanta yhteydessä");
             switchView(1);
             errorMsgTimeout();
+            ui->labelErrorMsg->setStyleSheet("background-color : grey");
         }
         else {
             if(testi==0){
                 ui->idEdit->clear();
                 ui->pinEdit->clear();
-                ui->labelinfo->setText("Tunnus ja salasana eivät täsmää");
+                ui->labelinfo->setText("Tunnus ja salasana eivät täsmää, yritä uudelleen");
+                ui->labelinfo->setStyleSheet("color: red");
                 if(attempts < 2)
                 {
                     ++attempts;
@@ -126,20 +145,23 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
                     ui->labelErrorMsg->setText("PIN syötetty väärin 3 kertaa. Kortti lukittu.");
                     ui->loginButton->hide();
                     switchView(1);
-                    mainMenu.mainTimeout();
+                    errorMsgTimeout();
+                    //ui->labelErrorMsg->setStyleSheet("color: red;");
+                    ui->labelErrorMsg->setStyleSheet("background-color : grey");
                 }
             }
-
-
              else {
                 switchView(2);
                 mainMenu.setWebToken("Bearer "+response_data);
                 balance.setWebToken("Bearer "+response_data);
                 mainMenu.mainTimeout();
+
+                ui->idEdit->clear();
+                ui->pinEdit->clear();
             }
         }
-
         reply->deleteLater();
         loginManager->deleteLater();
+    }
 }
-}
+

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>799</width>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,21 +27,27 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>180</y>
-        <width>361</width>
-        <height>141</height>
+        <x>240</x>
+        <y>190</y>
+        <width>301</width>
+        <height>101</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="labelID">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <bold>false</bold>
+          </font>
+         </property>
          <property name="text">
           <string>ID</string>
          </property>
@@ -49,6 +55,11 @@
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="idEdit">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">qApp-&gt;setStyleSheet(&quot;QLineEdit { background-color: yellow }&quot;);</string>
          </property>
@@ -56,18 +67,30 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="labelPIN">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <bold>false</bold>
+          </font>
+         </property>
          <property name="text">
           <string>PIN</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="pinEdit"/>
+        <widget class="QLineEdit" name="pinEdit">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+        </widget>
        </item>
        <item row="2" column="1">
         <widget class="QPushButton" name="loginButton">
          <property name="text">
-          <string>Login</string>
+          <string>Kirjaudu sisään</string>
          </property>
         </widget>
        </item>
@@ -76,37 +99,92 @@
      <widget class="QLabel" name="labelWelcome">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>200</x>
         <y>80</y>
-        <width>211</width>
+        <width>361</width>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
-       <string>banksimul</string>
+       <string>Tervetuloa!</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="labelinfo">
+     <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>208</x>
-        <y>350</y>
-        <width>361</width>
-        <height>61</height>
+        <x>210</x>
+        <y>150</y>
+        <width>441</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Kirjaudu sisään korttisi ID-numerolla ja PIN-koodilla</string>
       </property>
      </widget>
+     <widget class="QLabel" name="labelinfo">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>290</y>
+        <width>361</width>
+        <height>65</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelpic">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>600</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../../Untitled.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="openExternalLinks">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <zorder>labelpic</zorder>
+     <zorder>formLayoutWidget</zorder>
+     <zorder>labelWelcome</zorder>
+     <zorder>label</zorder>
+     <zorder>labelinfo</zorder>
     </widget>
     <widget class="QWidget" name="page_2">
      <widget class="QLabel" name="labelErrorMsg">
@@ -115,15 +193,15 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>100</y>
-        <width>600</width>
-        <height>300</height>
+        <x>110</x>
+        <y>190</y>
+        <width>561</width>
+        <height>151</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>20</pointsize>
+        <pointsize>18</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -144,7 +222,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>799</width>
      <height>21</height>
     </rect>
    </property>

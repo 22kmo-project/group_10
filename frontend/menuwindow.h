@@ -29,6 +29,7 @@ public:
     void logout();
 public slots:
     void mainTimeout();
+    void errorMsgTimeout();
 
 private slots:
     void on_logoutButton_clicked();
@@ -48,7 +49,6 @@ private:
     QByteArray responseData, webToken;
 
     void accountInfo();
-
     short mainMenuTimer;
     short mainMenuTimer2;
 

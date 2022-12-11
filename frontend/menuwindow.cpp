@@ -12,6 +12,18 @@ MenuWindow::MenuWindow(QWidget *parent) :
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(mainTimeout()));
     setTime(0, 30);
+    //this->setWindowState(Qt::WindowMinimized); //ei hyötyä maximized näyttää paskalta
+
+    /*QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
+    ui->labelpic->setPixmap(pix);
+    //view->showFullScreen();
+    this->setWindowState(Qt::WindowMaximized);
+
+    //QPixmap bkgnd("../img/background.png"); // These 5 lines sets background image to the window
+    pix = pix.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, pix);
+    this->setPalette(palette);*/
 }
 
 MenuWindow::~MenuWindow()

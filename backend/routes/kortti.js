@@ -75,4 +75,19 @@ function(request, response) {
  }
 });
 
+
+//ainon judduja
+router.put('/killcard/:id?',
+function(request, response) {
+ if (request.params.id) {
+   kortti.putLockKortti(request.params.id, function(err, dbResult) {
+     if (err) {
+       response.json(err);
+     } else {
+       response.json(dbResult[0]);
+     }
+   });
+ }
+});
+
 module.exports = router;

@@ -40,6 +40,9 @@ private slots:
     void switchView(short);
     void loginSlot (QNetworkReply * reply);
 
+
+
+
 private:
     Ui::LoginWindowNew *ui;
     QTimer* pointQTimer;
@@ -56,6 +59,9 @@ private:
     QString idKortti, ID, PIN, site_url;
     QNetworkRequest *networkRequest;
     int attempts;
+
+
+
 
 signals:
    // void mainClicked(); //voi olla tulevaisuudessa käyttöä, älä poista vielä
