@@ -23,7 +23,7 @@ public:
 
     const QString &getWebToken() const;
     void setWebToken(const QByteArray &newWebToken);
-    QByteArray getWebToken();
+    QByteArray getWebToken(), response_data;
     void setTime(short, short);
     void logout();
 

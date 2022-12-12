@@ -47,8 +47,8 @@ void WithdrawWindow::withdrawAmount(QString summa)
     QNetworkRequest request((site_url));
     QJsonObject json_obj;
     json_obj.insert("haluttuSumma",summa_double);
-    json_obj.insert("id","101");
-    json_obj.insert("tilinumTarkistus","FI 00000000");
+    json_obj.insert("id","1");
+    json_obj.insert("tilinumTarkistus","FI 01234 56789");
     qDebug() << summa_double << "nosto " << json_obj;
 
      request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
@@ -67,28 +67,28 @@ void WithdrawWindow::withdrawSlot(QNetworkReply *reply)
     qDebug()<<"DATA : "+response_data;
 
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
-   // QJsonArray json_array = json_doc.array();
+    // QJsonArray json_array = json_doc.array();
 
     QString balance, tilinum, accountId;
-           balance+=json_doc[0]["saldo"].toDouble();
-           accountId+=json_doc[0]["idTili"].toInt();
-           tilinum+=json_doc[0]["tilinumero"].toString();
+    balance+=json_doc[0]["saldo"].toDouble();
+    accountId+=json_doc[0]["idTili"].toInt();
+    tilinum+=json_doc[0]["tilinumero"].toString();
 
-           if(response_data.length()==0){
-               qDebug()<<"server not responding";
-           }
-               else {
-                   if(response_data.contains("-4078")){
-                       qDebug()<<"Error in connection";
-                   }
-                   else {
-                       qDebug()<<accountId;
-                   }
+    if(response_data.length()==0){
+        qDebug()<<"server not responding";
+    }
+    else {
+        if(response_data.contains("-4078")){
+            qDebug()<<"Error in connection";
+        }
+        else {
+            qDebug()<<accountId;
+        }
 
-               }
-           reply->deleteLater();
-           getManager->deleteLater();
-           }
+    }
+    reply->deleteLater();
+    getManager->deleteLater();
+}
 
   /*  foreach (const QJsonValue &value, json_array) {
       QJsonObject json_obj = value.toObject();
@@ -113,7 +113,7 @@ void WithdrawWindow::on_saldo_button_clicked()
 {
    // int id=1;
    // QString id;
-       QString site_url=MyUrl::getBaseUrl()+"tili";
+       QString site_url=MyUrl::getBaseUrl()+"tili/1";
 
        QNetworkRequest request((site_url));
 

@@ -1,5 +1,6 @@
 #include "menuwindow.h"
 #include "ui_menuwindow.h"
+#include "loginwindownew.h"
 
 
 MenuWindow::MenuWindow(QWidget *parent) :
@@ -67,7 +68,6 @@ void MenuWindow::on_logoutButton_clicked()
 
 void MenuWindow::on_transactionButton_clicked()
 {
-    pointQTimer->stop();
     setTime(10, 0);
     emit mainMove(6);
 
@@ -86,7 +86,7 @@ void MenuWindow::on_balanceButton_clicked()
 
 void MenuWindow::on_depositButton_clicked()
 {
-    pointQTimer->stop();
+
     setTime(10, 0);
     emit mainMove(4);
 }
@@ -94,7 +94,7 @@ void MenuWindow::on_depositButton_clicked()
 
 void MenuWindow::on_withdrawButton_clicked()
 {
-    pointQTimer->stop();
+
     setTime(10, 0);
     emit mainMove(3);
 }
