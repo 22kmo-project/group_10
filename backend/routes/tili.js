@@ -60,18 +60,18 @@ function(request, response) {
     }
   });
 });
-
+///////////////////////OMIA LISÄYKSIÄ///////////////////
 router.post('/withdraw', 
 function(request, response) {
   tili.withdraw(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
-      if (dbResult["affectedRows"] > 0) { // affectedRows = 1 if updating row was successful
-        console.log("Success!");
+      if (dbResult["affectedRows"] > 0) { 
+        console.log(dbResult);
         response.send("Nosto onnistui");
       } else {
-        console.log("Something went wrong!");
+        console.log(dbResult);
         response.send("Nosto ei onnistunut");
       }
     }
@@ -85,10 +85,10 @@ function(request, response) {
       response.json(err);
     } else {
       if (dbResult["affectedRows"] > 0) { 
-        console.log("Success!");
+        console.log(dbResult);
         response.send("Talletus onnistui");
       } else {
-        console.log("Something went wrong!");
+        console.log(dbResult);
         response.send("Talletus ei onnistunut");
       }
     }

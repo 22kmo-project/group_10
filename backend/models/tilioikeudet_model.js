@@ -27,7 +27,7 @@ const tilioikeudet = {
   },
   /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
   getCurrentId: function(id, callback) {
-    return db.query('SELECT nimi, omistaja as "tilin omistaja", osoite, puh,tili.tilinumero, tili.saldo FROM tilioikeudet inner join asiakas on asiakas.idAsiakas=tilioikeudet.idAsiakas  inner join tili on tili.idTili=tilioikeudet.idTili  where tili.idTili = 1',
+    return db.query('SELECT nimi, omistaja as "tilin omistaja", osoite, puh,tili.tilinumero, tili.saldo FROM tilioikeudet inner join asiakas on asiakas.idAsiakas=tilioikeudet.idAsiakas  inner join tili on tili.idTili=tilioikeudet.idTili  where tili.idTili = ?',
      [id], callback);
   }
 };

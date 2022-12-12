@@ -44,6 +44,60 @@
     <string>Takaisin</string>
    </property>
   </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>170</y>
+     <width>211</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Paljonko talletetaan?</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="amountText">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Talleta</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>
