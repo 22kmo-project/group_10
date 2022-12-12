@@ -17,12 +17,9 @@ LoginWindowNew::LoginWindowNew(QWidget *parent) :
     ui->setupUi(this);
     ui->idEdit->setFocus();
 
-//kuva
     QPixmap pix("C:/Users/ainom/Documents/Koulu_Oamk/tausta.png");
     ui->labelpic->setPixmap(pix);
 
-
-    //QPixmap bkgnd("../img/background.png"); // These 5 lines sets background image to the window
     pix = pix.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Window, pix);

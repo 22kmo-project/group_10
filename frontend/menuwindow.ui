@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="Page_0">
     <widget class="QWidget" name="gridLayoutWidget">
@@ -32,23 +32,10 @@
        <x>10</x>
        <y>40</y>
        <width>781</width>
-       <height>551</height>
+       <height>511</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QPushButton" name="transactionButton">
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Tilitapahtumat</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="withdrawButton">
         <property name="maximumSize">
@@ -59,6 +46,32 @@
         </property>
         <property name="text">
          <string>Nosta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="depositButton">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Talleta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="transactionButton">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Tilitapahtumat</string>
         </property>
        </widget>
       </item>
@@ -91,19 +104,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="depositButton">
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Talleta</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
     <widget class="QLabel" name="label">
@@ -128,10 +128,10 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>30</y>
+       <x>210</x>
+       <y>510</y>
        <width>401</width>
-       <height>16</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="font">
