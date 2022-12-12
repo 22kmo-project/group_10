@@ -116,6 +116,7 @@ void LoginWindowNew::loginSlot(QNetworkReply *reply)
             }
             else {
                 switchView(2);
+                setTextMethod("");//Tyhjä viesti, clearataan vain id ja pin
                 mainMenu.setWebToken("Bearer "+response_data);
                 balance.setWebToken("Bearer "+response_data);
                 cashWithdraw.setWebToken("Bearer "+response_data);
