@@ -118,8 +118,13 @@
           <height>100</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Tervetuloa Teppo</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
