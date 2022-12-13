@@ -27,7 +27,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -141,7 +141,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background: rgb(0, 85, 255);</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>Tähän tulee virheilmoitus</string>
