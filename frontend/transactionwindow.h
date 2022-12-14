@@ -59,6 +59,8 @@ private slots:
 
     void on_getPrevButton_clicked();
 
+    void on_updateButton_clicked();
+
 signals:
     void mainMove(short);
 

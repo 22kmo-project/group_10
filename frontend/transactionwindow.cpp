@@ -11,7 +11,8 @@ TransactionWindow::TransactionWindow(QWidget *parent) :
     pointQTimer = new QTimer (this);
     connect(pointQTimer, SIGNAL(timeout()), this, SLOT(transTimeout()));
     setTime();
-
+    ui->getNextButton->setVisible(false);
+    ui->getPrevButton->setVisible(false);
 }
 
 TransactionWindow::~TransactionWindow()
@@ -175,24 +176,38 @@ void TransactionWindow::getDataSlot()
 }
 
 
-void TransactionWindow::on_getNextButton_clicked()
+//void TransactionWindow::on_getNextButton_clicked()
+//{
+//    nextButtonClicked=true;
+//    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
+//    QNetworkRequest request((site_url));
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+//    request.setRawHeader(QByteArray("Authorization"),(webToken));
+//    transGetManager = new QNetworkAccessManager(this);
+
+//    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+
+//    reply = transGetManager->get(request);
+//}
+
+
+//void TransactionWindow::on_getPrevButton_clicked()
+//{
+//    PrevButtonClicked =true;
+//    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
+//    QNetworkRequest request((site_url));
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+//    request.setRawHeader(QByteArray("Authorization"),(webToken));
+//    transGetManager = new QNetworkAccessManager(this);
+
+//    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
+
+//    reply = transGetManager->get(request);
+//}
+
+
+void TransactionWindow::on_updateButton_clicked()
 {
-    nextButtonClicked=true;
-    QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
-    QNetworkRequest request((site_url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader(QByteArray("Authorization"),(webToken));
-    transGetManager = new QNetworkAccessManager(this);
-
-    connect(transGetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(dataSlot(QNetworkReply*)));
-
-    reply = transGetManager->get(request);
-}
-
-
-void TransactionWindow::on_getPrevButton_clicked()
-{
-    PrevButtonClicked =true;
     QString site_url=MyUrl::getBaseUrl()+"tilitapahtumat";
     QNetworkRequest request((site_url));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");

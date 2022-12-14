@@ -27,7 +27,7 @@ const tilitapahtumat = {
   },
   /////////////////////OMIA LISÄYKSIÄ/////////////////////////////
   getTransView: function(id,callback) {
-    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat where idTilitapahtumat=? order by idTilitapahtumat desc', 
+    return db.query('SELECT idTilitapahtumat, tilinumero, date_format(tilitapahtuma_pvm, "%d.%m.%Y") as "pvm", selite, summa FROM tilitapahtumat where idTilitapahtumat=? order by idTilitapahtumat desc limit 10', 
     [id],callback);
   }
 
